@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
-
-#if UNIVERSAL_PIPELINE_CORE_INCLUDED 
 using UnityEngine.Rendering.Universal;
 
 public class URP_CustomRenderFeature : ScriptableRendererFeature
@@ -16,4 +13,3 @@ public class URP_CustomRenderFeature : ScriptableRendererFeature
         renderer.EnqueuePass(blur_pass);
     }
 }
-#endif

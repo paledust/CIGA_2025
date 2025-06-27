@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-
-#if UNIVERSAL_PIPELINE_CORE_INCLUDED 
+using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.Universal;
 
-[System.Serializable, VolumeComponentMenuForRenderPipeline("Custom/Blur_URP", typeof(UniversalRenderPipeline))]
+[Serializable, VolumeComponentMenu("Custom/Blur_URP")]
 public class Blur_URP : VolumeComponent, IPostProcessComponent
 {
     [Range(0, 0.1f)] public FloatParameter blurAmount = new FloatParameter(value : 0f);
@@ -15,7 +13,7 @@ public class Blur_URP : VolumeComponent, IPostProcessComponent
     public bool IsTileCompatible() => true;
 }
 
-[System.Serializable]
+[Serializable]
 public class Blur_URP_Pass : ScriptableRenderPass
 {
     RenderTargetIdentifier src;
@@ -28,11 +26,12 @@ public class Blur_URP_Pass : ScriptableRenderPass
     public Blur_URP_Pass(){
         renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
     }
-
+    public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData){}
+    [Obsolete]
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData){
         material = CoreUtils.CreateEngineMaterial(Shader.Find("Hidden/Custom/Blur_URP"));
 
-        src = renderingData.cameraData.renderer.cameraColorTarget;
+        src = renderingData.cameraData.renderer.cameraColorTargetHandle;
         
         RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;
         cmd.GetTemporaryRT(BlurRT_ID_V, descriptor.width>>1, descriptor.height>>1, 0, FilterMode.Bilinear, descriptor.colorFormat);
@@ -40,23 +39,28 @@ public class Blur_URP_Pass : ScriptableRenderPass
         cmd.GetTemporaryRT(BlurRT_ID_H, descriptor.width>>1, descriptor.height>>1, 0, FilterMode.Bilinear, descriptor.colorFormat);
         tempID_H = new RenderTargetIdentifier(BlurRT_ID_H);
     }
-    public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData){
-        if(material == null){
+    [Obsolete]
+    public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+    {
+        if (material == null)
+        {
             Debug.LogError("Blur effect Materials instance is null");
             return;
         }
 
         CommandBuffer cmd = CommandBufferPool.Get("Blur");
         cmd.Clear();
-        
+
         var stack = VolumeManager.instance.stack;
 
         var blurEffect = stack.GetComponent<Blur_URP>();
-        if(blurEffect.IsActive()){
+        if (blurEffect.IsActive())
+        {
             material.SetFloat("_BlurSize", blurEffect.blurAmount.value);
             material.SetInt("_Sample", blurEffect.sampleAmount.value);
         }
-        else{
+        else
+        {
             return;
         }
 
@@ -72,4 +76,3 @@ public class Blur_URP_Pass : ScriptableRenderPass
         cmd.ReleaseTemporaryRT(BlurRT_ID_H);
     }
 }
-#endif
