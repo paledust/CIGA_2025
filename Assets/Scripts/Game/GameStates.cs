@@ -29,10 +29,9 @@ public class IntroState : GameState
     {
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
-        {
+            return new EntryState(context.GetEntryData());
+        else
             return null;
-        }
-        return new EntryState(context.GetEntryData());
     }
 }
 
@@ -41,36 +40,51 @@ public class EntryState : GameState
 {
     public struct EntryData
     {
-        public Transform entryTrans;
+        public DisposeObject entryObject;
         public Vector3 targetPos;
         public Vector3 startPos;
         public float tweenDuration;
     }
+    private Transform entryTrans;
     private EntryData entryData;
     private float tweenTimer;
     public override GameStateType m_gameState => GameStateType.Entry;
     public EntryState(EntryData _entryData)
     {
         entryData = _entryData;
+        entryTrans = entryData.entryObject.transform;
         tweenTimer = 0;
     }
     public override void EnterState(GameController context)
     {
         base.EnterState(context);
-        entryData.entryTrans.position = entryData.startPos;
+        entryData.entryObject.gameObject.SetActive(true);
+        entryData.entryObject.transform.position = entryData.startPos;
     }
     public override State<GameController> UpdateState(GameController context)
     {
         tweenTimer += Time.deltaTime;
-        entryData.entryTrans.position = Vector3.Lerp(entryData.startPos, entryData.targetPos, EasingFunc.Easing.BackEaseOut(tweenTimer / entryData.tweenDuration));
-        return null;
+        entryTrans.position = Vector3.LerpUnclamped(entryData.startPos, entryData.targetPos, EasingFunc.Easing.BackEaseOut(tweenTimer / entryData.tweenDuration));
+        if (tweenTimer >= entryData.tweenDuration)
+            return new GetMessageState(entryData.entryObject);
+        else
+            return null;
     }
 }
 
 //获取物品遗言环节
 public class GetMessageState : GameState
 {
+    private DisposeObject disposeObject;
     public override GameStateType m_gameState => GameStateType.GetMessage;
+    public GetMessageState(DisposeObject targetObject)
+    {
+        disposeObject = targetObject;
+    }
+    public override State<GameController> UpdateState(GameController context)
+    {
+        return null;
+    }
     
 }
 

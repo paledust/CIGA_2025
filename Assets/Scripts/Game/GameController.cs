@@ -4,10 +4,15 @@ using System;
 public class GameController : MonoBehaviour
 {
     [SerializeField, ShowOnly] private GameStateType currentStateType = GameStateType.None;
+    [Header("dispose obejct")]
     [SerializeField] private int startDisposeObjIndex = 0;
+    [SerializeField] private DisposeObject[] disposeObjectsInLine;
+    [Header("ref Point")]
     [SerializeField] private Transform preparePoint;
     [SerializeField] private Transform viewPoint;
-    [SerializeField] private DisposeObject[] disposeObjectsInLine;
+    [Header("Timing")]
+    [SerializeField] private float introTime = 3;
+    [SerializeField] private float entryTime = 2f;
 
     private GameState currentState;
     private int currentDisposeIndex = 0;
@@ -15,7 +20,7 @@ public class GameController : MonoBehaviour
     #region Unity Life Cycle
     void Start()
     {
-        currentState = new IntroState(3f);
+        currentState = new IntroState(introTime);
         currentDisposeIndex = startDisposeObjIndex;
     }
     void OnEnable()
@@ -48,11 +53,11 @@ public class GameController : MonoBehaviour
     {
         return new EntryState.EntryData()
         {
-            entryTrans = disposeObjectsInLine[currentDisposeIndex].transform,
+            entryObject = disposeObjectsInLine[currentDisposeIndex],
             startPos = preparePoint.position,
             targetPos = viewPoint.position,
-            tweenDuration = 4.0f
+            tweenDuration = entryTime
         };
     }
-#endregion
+    #endregion
 }
