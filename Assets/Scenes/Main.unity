@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926533135585865537, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32
+      value: -0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6926533135585865537, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
       propertyPath: m_LocalPosition.y
@@ -337,7 +337,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &705990786
 Transform:
@@ -736,13 +736,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStateType: 0
   startDisposeObjIndex: 0
-  preparePoint: {fileID: 723066631}
-  viewPoint: {fileID: 1811731517}
   disposeObjectsInLine:
   - {fileID: 3434391596053522934}
   - {fileID: 953331093}
   - {fileID: 861792700}
   - {fileID: 1004215850}
+  preparePoint: {fileID: 723066631}
+  viewPoint: {fileID: 1811731517}
+  introTime: 3
+  entryTime: 1
 --- !u!1 &1497202442
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +775,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1192782511}
+  - {fileID: 2007940074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545469038
@@ -790,7 +793,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1545469039
 Transform:
@@ -897,6 +900,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7388847808964390437, guid: e44ea99e928963c49bf77c5c083264a5, type: 3}
   m_PrefabInstance: {fileID: 2292365644451796361}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2007940073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2007940074}
+  - component: {fileID: 2007940075}
+  m_Layer: 0
+  m_Name: WordsReceiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &2007940074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007940073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1497202443}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2007940075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007940073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c220c47a95e3746b9cc0c0b1f9f56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2042054955
 GameObject:
   m_ObjectHideFlags: 0

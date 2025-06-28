@@ -40,7 +40,7 @@ public class EntryState : GameState
 {
     public struct EntryData
     {
-        public DisposeObject entryObject;
+        public DeadObject entryObject;
         public Vector3 targetPos;
         public Vector3 startPos;
         public float tweenDuration;
@@ -75,9 +75,9 @@ public class EntryState : GameState
 //获取物品遗言环节
 public class GetMessageState : GameState
 {
-    private DisposeObject disposeObject;
+    private DeadObject disposeObject;
     public override GameStateType m_gameState => GameStateType.GetMessage;
-    public GetMessageState(DisposeObject targetObject)
+    public GetMessageState(DeadObject targetObject)
     {
         disposeObject = targetObject;
     }

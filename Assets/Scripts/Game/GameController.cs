@@ -1,12 +1,11 @@
 using UnityEngine;
-using DG.Tweening;
-using System;
+
 public class GameController : MonoBehaviour
 {
     [SerializeField, ShowOnly] private GameStateType currentStateType = GameStateType.None;
     [Header("dispose obejct")]
     [SerializeField] private int startDisposeObjIndex = 0;
-    [SerializeField] private DisposeObject[] disposeObjectsInLine;
+    [SerializeField] private DeadObject[] disposeObjectsInLine;
     [Header("ref Point")]
     [SerializeField] private Transform preparePoint;
     [SerializeField] private Transform viewPoint;
@@ -22,14 +21,6 @@ public class GameController : MonoBehaviour
     {
         currentState = new IntroState(introTime);
         currentDisposeIndex = startDisposeObjIndex;
-    }
-    void OnEnable()
-    {
-
-    }
-    void OnDisable()
-    {
-
     }
     void Update()
     {
