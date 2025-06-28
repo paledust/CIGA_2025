@@ -48,9 +48,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2769299959093274686, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
+      propertyPath: imgData
+      value: 
+      objectReference: {fileID: 11400000, guid: b740b06ddd4c224498aedd10d035f6b8, type: 2}
     - target: {fileID: 3304845985085147997, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
       propertyPath: m_Name
-      value: Phone Variant
+      value: "\u624B\u673A Variant"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

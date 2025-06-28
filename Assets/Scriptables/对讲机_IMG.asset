@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05d9bc98aa598fe459eef254116d599a, type: 3}
-  m_Name: Apple_IMAGE
+  m_Name: "\u5BF9\u8BB2\u673A_IMG"
   m_EditorClassIdentifier: 
   mark: []
-  showingImg: {fileID: 2800000, guid: d8b538796c7980843b59d62dbcdebef5, type: 3}
+  showingImg: {fileID: 2800000, guid: 7a5440166d1bda5409c60c1a45f5b5ee, type: 3}
