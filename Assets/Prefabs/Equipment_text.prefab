@@ -444,8 +444,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ledRender: {fileID: 4539261554348330916}
   text: {fileID: 1044510377828074503}
-  textMoveSpeed: 1
-  textMoveStep: 0.25
+  textMoveSpeed: 4
+  textMoveStep: 0.5
   initTextPos: 4
 --- !u!4 &7372701437437994761 stripped
 Transform:
