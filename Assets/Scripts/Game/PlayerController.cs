@@ -53,12 +53,10 @@ public class PlayerController : MonoBehaviour
     #region Input Event
     void OnTouch(InputValue value)
     {
-        Debug.Log("Clicking");
         if (value.isPressed)
         {
             if (m_hoveringInteractable != null)
             {
-                Debug.Log("OnClick");
                 m_hoveringInteractable.OnClick(this);
             }
         }
