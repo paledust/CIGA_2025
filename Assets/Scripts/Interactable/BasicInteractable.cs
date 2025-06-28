@@ -7,7 +7,7 @@ public abstract class BasicInteractable : MonoBehaviour
     public virtual void OnRelease() { }
     public virtual void OnExitHover() { }
     public virtual void OnHover() { }
-    public virtual void Controlling(Vector3 pos, Vector3 delta) { }
-    protected void DisableHitbox() => hitbox.enabled = false;
-    protected void EnableHitbox() => hitbox.enabled = true;
+    public virtual void Controlling(Vector3 wrdPos, Vector3 delta) { }
+    public void DisableHitbox() => hitbox.enabled = false;
+    public void EnableHitbox() => hitbox.enabled = true;
 }

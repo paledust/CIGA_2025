@@ -152,11 +152,11 @@ public class DeadEntry : GameState
         if (trashTimer >= 0.5f && !deadsTrashed)
         {
             deadsTrashed = true;
-            context.ClearRead();
+            context.ResetFactory();
             GameObject.Destroy(deadObject.gameObject);
         }
 
-        if (trashTimer >= 1.5f)
+        if (trashTimer >= 6f)
         {
             return new EntryState(context.GetNextEntryData());
         }

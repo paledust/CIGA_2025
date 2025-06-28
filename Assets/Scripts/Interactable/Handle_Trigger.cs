@@ -23,6 +23,10 @@ public class Handle_Trigger : BasicInteractable
     }
     public override void Controlling(Vector3 pos, Vector3 delta)
     {
-        handle.PushHandle(delta.y * pushForce, DisableHitbox);
+        handle.PushHandle(delta.y * pushForce, ()=>
+        {
+            OnRelease();
+            DisableHitbox();
+        });
     }
 }

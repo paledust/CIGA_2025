@@ -16,6 +16,8 @@ public static class EventHandler
     #region Interaction
     public static event Action E_OnTrashDeads;
     public static void Call_OnBeginTrash() => E_OnTrashDeads?.Invoke();
+    public static event Action E_OnInsertLabel;
+    public static void Call_OnInsertLabel() => E_OnInsertLabel?.Invoke();
     #endregion
 }
 

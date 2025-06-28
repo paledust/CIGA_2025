@@ -33,6 +33,7 @@ public class Equipment_AUDIO : Equipment
     {
         base.ClearContent();
         commandManager.AbortCommands();
+        staticLoop.Stop();
     }
     void TuneWaveSignal(float ampControl)
     {

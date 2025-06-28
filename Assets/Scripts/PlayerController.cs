@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            holdedInteractable.Controlling(mouseScrPos, mouseDelta);
+            holdedInteractable.Controlling(mainCam.ScreenToWorldPoint(mouseScrPos), mouseDelta);
         }
     }
     void ClearHoveringInteractable()

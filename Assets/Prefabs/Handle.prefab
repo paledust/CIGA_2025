@@ -367,6 +367,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   threashold: 0.4
+  handle_Trigger: {fileID: 8160854803916599351}
 --- !u!1 &6546778958564780684
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,4 +451,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 3063049559196576142}
   handle: {fileID: 3614706399247023889}
-  pushForce: 10
+  pushForce: 0.25

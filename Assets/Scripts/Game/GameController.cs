@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private DeadReader deadReader;
     [Header("Init Game")]
     [SerializeField] private string roomToneClip;
+    [Header("Handle")]
+    [SerializeField] private Handle handle;
 
     private GameState currentState;
     private int currentDeadsIndex = 0;
@@ -61,7 +63,11 @@ public class GameController : MonoBehaviour
         return entryData;
     }
     public void ReadDeadObject(DeadObject deads)=>deadReader.ReadDeadObject(deads);
-    public void ClearRead() => deadReader.ClearRead();
+    public void ResetFactory()
+    {
+        deadReader.ClearRead();
+        handle.ResetHandle();
+    }
     public Vector3 GetTrashPos() => trashPoint.position;
     #endregion
 }

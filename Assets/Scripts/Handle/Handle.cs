@@ -16,6 +16,7 @@ public class Handle : MonoBehaviour
     [SerializeField] private AnimationCurve shakeCurve;
     [Header("Push Handle")]
     [SerializeField] private float threashold = 0.4f;
+    [SerializeField] private Handle_Trigger handle_Trigger;
     private Vector3 initHandlePos;
     private Vector3 initHeadPos;
     private Vector3 initHandleScale;
@@ -44,6 +45,7 @@ public class Handle : MonoBehaviour
     public void PushHandle(float force, Action Success)
     {
         ratio += force * Time.deltaTime;
+        ratio = Mathf.Min(1, ratio);
         if (ratio > threashold)
         {
             Success?.Invoke();
@@ -58,8 +60,20 @@ public class Handle : MonoBehaviour
             StartCoroutine(coroutineReturnHandle(OnComplete));
         }
     }
+    public void ResetHandle()
+    {
+        StartCoroutine(coroutineResetHandle());
+    }
     #endregion
 
+    IEnumerator coroutineResetHandle()
+    {
+        yield return new WaitForLoop(1f, (t) =>
+        {
+            ratio = Mathf.Lerp(1, 0, EasingFunc.Easing.BounceEaseOut(t));
+        });
+        handle_Trigger.EnableHitbox();
+    }
     IEnumerator coroutineReturnHandle(Action OnComplete)
     {
         float initRatio = ratio;
@@ -76,6 +90,7 @@ public class Handle : MonoBehaviour
         {
             ratio = Mathf.Lerp(initRatio, 1, EasingFunc.Easing.QuadEaseOut(t));
         });
+        isPushing = false;
         EventHandler.Call_OnBeginTrash();
     }
     IEnumerator coroutineShakeHandle(Action OnComplete)

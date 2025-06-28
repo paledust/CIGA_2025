@@ -9,4 +9,9 @@ public class Equipment_IMG : Equipment
         var imgData = (lastWords as LastWords_IMAGE).GetShowingImg();
         screenTex.material.SetTexture(ScreenTexID, imgData);
     }
+    public override void ClearContent()
+    {
+        base.ClearContent();
+        screenTex.material.SetTexture(ScreenTexID, Texture2D.whiteTexture);
+    }
 }
