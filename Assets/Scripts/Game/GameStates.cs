@@ -19,8 +19,10 @@ public abstract class GameState : State<GameController>
 //游戏入场环节
 public class IntroState : GameState
 {
-    public override GameStateType m_gameState => GameStateType.Intro;
     private float stateTimer = 3f;
+
+    public override GameStateType m_gameState => GameStateType.Intro;
+
     public IntroState(float duration)
     {
         stateTimer = duration;
@@ -29,7 +31,7 @@ public class IntroState : GameState
     {
         stateTimer -= Time.deltaTime;
         if (stateTimer <= 0)
-            return new EntryState(context.GetEntryData());
+            return new EntryState(context.GetNextEntryData());
         else
             return null;
     }
@@ -65,6 +67,7 @@ public class EntryState : GameState
     {
         tweenTimer += Time.deltaTime;
         entryTrans.position = Vector3.LerpUnclamped(entryData.startPos, entryData.targetPos, EasingFunc.Easing.QuadEaseOut(tweenTimer / entryData.tweenDuration));
+        entryTrans.localScale = Vector3.one * Mathf.LerpUnclamped(2f, 1f, EasingFunc.Easing.QuadEaseOut(tweenTimer / entryData.tweenDuration));
         if (tweenTimer >= entryData.tweenDuration)
             return new GetMessageState(entryData.entryObject);
         else
@@ -76,20 +79,37 @@ public class EntryState : GameState
 public class GetMessageState : GameState
 {
     private DeadObject deadObject;
+    private bool trashFlag = false;
+
     public override GameStateType m_gameState => GameStateType.GetMessage;
+
     public GetMessageState(DeadObject targetObject)
     {
+        trashFlag = false;
         deadObject = targetObject;
     }
     public override void EnterState(GameController context)
     {
         context.ReadDeadObject(deadObject);
+        EventHandler.E_OnTrashDeads += TrashDeadsHandler;
+    }
+    public override void ExitState(GameController context)
+    {
+        EventHandler.E_OnTrashDeads -= TrashDeadsHandler;
     }
     public override State<GameController> UpdateState(GameController context)
     {
+        if (trashFlag)
+        {
+            return new DeadEntry(deadObject);
+        }
         return null;
     }
-    
+    void TrashDeadsHandler()
+    {
+        trashFlag = true;
+    }
+
 }
 
 //选择物品墓志铭环节
@@ -100,8 +120,47 @@ public class ChooseMark : GameState
 
 //焚烧物品环节
 public class DeadEntry : GameState
-{ 
+{
+    private DeadObject deadObject;
+    private Vector3 startPos;
+    private Vector3 trashPoint;
+    private Vector3 startScale;
+    private float trashTimer = 0;
+    private bool deadsTrashed = false;
     public override GameStateType m_gameState => GameStateType.Dead;
+
+    public DeadEntry(DeadObject deadObject)
+    {
+        this.deadObject = deadObject;
+        deadsTrashed = false;
+        startPos = deadObject.transform.position;
+        startScale = deadObject.transform.localScale;
+    }
+    public override void EnterState(GameController context)
+    {
+        trashTimer = 0;
+        trashPoint = context.GetTrashPos();
+    }
+    public override State<GameController> UpdateState(GameController context)
+    {
+        trashTimer += Time.deltaTime;
+        if (!deadsTrashed)
+        {
+            deadObject.transform.position = Vector3.Lerp(startPos, trashPoint, EasingFunc.Easing.SmoothInOut(trashTimer / 0.5f));
+            deadObject.transform.localScale = Vector3.Lerp(startScale, startScale * 0.5f, EasingFunc.Easing.SmoothInOut(trashTimer / 0.5f));
+        }
+        if (trashTimer >= 0.5f && !deadsTrashed)
+        {
+            deadsTrashed = true;
+            GameObject.Destroy(deadObject.gameObject);
+        }
+
+        if (trashTimer >= 1.5f)
+        {
+            return new EntryState(context.GetNextEntryData());
+        }
+        return null;
+    }
 }
 
 //游戏结局

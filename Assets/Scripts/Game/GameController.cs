@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     [Header("ref Point")]
     [SerializeField] private Transform preparePoint;
     [SerializeField] private Transform viewPoint;
+    [SerializeField] private Transform trashPoint;
     [Header("Timing")]
     [SerializeField] private float introTime = 3;
     [SerializeField] private float entryTime = 2f;
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
         State<GameController> newState = currentState.UpdateState(this);
         if (newState != null)
         {
+            currentState.ExitState(this);
             currentState = newState as GameState;
             currentState.EnterState(this);
         }
@@ -42,19 +44,22 @@ public class GameController : MonoBehaviour
         deadsInLine[currentDeadsIndex].gameObject.SetActive(true);
         deadsInLine[currentDeadsIndex].transform.position = preparePoint.position;
     }
-    public EntryState.EntryData GetEntryData()
+    public EntryState.EntryData GetNextEntryData()
     {
-        return new EntryState.EntryData()
+        var entryData = new EntryState.EntryData()
         {
             entryObject = deadsInLine[currentDeadsIndex],
             startPos = preparePoint.position,
             targetPos = viewPoint.position,
             tweenDuration = entryTime
         };
+        currentDeadsIndex++;
+        return entryData;
     }
     public void ReadDeadObject(DeadObject deads)
     {
         deadReader.ReadDeadObject(deads);
     }
+    public Vector3 GetTrashPos() => trashPoint.position;
     #endregion
 }

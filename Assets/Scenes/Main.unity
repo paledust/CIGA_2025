@@ -523,6 +523,7 @@ Transform:
   m_Children:
   - {fileID: 723066631}
   - {fileID: 1811731517}
+  - {fileID: 749585466}
   m_Father: {fileID: 919716718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705990785
@@ -588,6 +589,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 448779311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &749585465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749585466}
+  m_Layer: 0
+  m_Name: TrashPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &749585466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749585465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.21, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 448779311}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &861792698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -639,22 +671,6 @@ PrefabInstance:
     - target: {fileID: 3304845985085147997, guid: 083927891c06be944a1e68322205f5ae, type: 3}
       propertyPath: m_Name
       value: Deads_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3304845985085147997, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.2385
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.2385
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.2385
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -857,22 +873,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Deads_2
       objectReference: {fileID: 0}
-    - target: {fileID: 3304845985085147997, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.2385
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.2385
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.2385
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -995,22 +995,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Deads_4
       objectReference: {fileID: 0}
-    - target: {fileID: 3304845985085147997, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.2385
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.2385
-      objectReference: {fileID: 0}
-    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.2385
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1085,6 +1069,7 @@ MonoBehaviour:
   - {fileID: 1004215850}
   preparePoint: {fileID: 723066631}
   viewPoint: {fileID: 1811731517}
+  trashPoint: {fileID: 749585466}
   introTime: 3
   entryTime: 1
   deadReader: {fileID: 2007940075}
@@ -1452,7 +1437,7 @@ Transform:
   m_GameObject: {fileID: 1811731516}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.21, y: -1.75, z: 0}
+  m_LocalPosition: {x: 0, y: -1.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2228,6 +2213,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2266275666171706206, guid: 311002f049086e44d9233138bd82b91b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614706399247023889, guid: 311002f049086e44d9233138bd82b91b, type: 3}
+      propertyPath: isLocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3614706399247023889, guid: 311002f049086e44d9233138bd82b91b, type: 3}

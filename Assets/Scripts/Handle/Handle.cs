@@ -76,6 +76,7 @@ public class Handle : MonoBehaviour
         {
             ratio = Mathf.Lerp(initRatio, 1, EasingFunc.Easing.QuadEaseOut(t));
         });
+        EventHandler.Call_OnBeginTrash();
     }
     IEnumerator coroutineShakeHandle(Action OnComplete)
     {
