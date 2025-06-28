@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mark:
   - Friendly
-  showingText: I fall.
+  showingText: I fall from tree

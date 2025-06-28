@@ -64,7 +64,7 @@ public class EntryState : GameState
     public override State<GameController> UpdateState(GameController context)
     {
         tweenTimer += Time.deltaTime;
-        entryTrans.position = Vector3.LerpUnclamped(entryData.startPos, entryData.targetPos, EasingFunc.Easing.BackEaseOut(tweenTimer / entryData.tweenDuration));
+        entryTrans.position = Vector3.LerpUnclamped(entryData.startPos, entryData.targetPos, EasingFunc.Easing.QuadEaseOut(tweenTimer / entryData.tweenDuration));
         if (tweenTimer >= entryData.tweenDuration)
             return new GetMessageState(entryData.entryObject);
         else

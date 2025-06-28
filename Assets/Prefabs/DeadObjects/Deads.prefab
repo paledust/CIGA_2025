@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06287ef2de2c9044ade2bbe5d0bafb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textData: {fileID: 0}
+  audioData: {fileID: 0}
+  imgData: {fileID: 0}
 --- !u!1 &5133344053855243297
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,9 +121,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1107236523
+  m_SortingLayer: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 3351748369286481944, guid: 4dffe6eab57ca4e4ba2f967307bd1c29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
