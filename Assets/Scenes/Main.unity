@@ -132,17 +132,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 199530298}
     m_Modifications:
+    - target: {fileID: 682888268570888209, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9780546
+      objectReference: {fileID: 0}
+    - target: {fileID: 682888268570888209, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 682888268570888209, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7764706
+      objectReference: {fileID: 0}
     - target: {fileID: 5073917249666908014, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
       propertyPath: m_Name
       value: Equipment_audio
       objectReference: {fileID: 0}
     - target: {fileID: 6926533135585865537, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.71
+      value: -6.68
       objectReference: {fileID: 0}
     - target: {fileID: 6926533135585865537, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.8
+      value: -7.03
       objectReference: {fileID: 0}
     - target: {fileID: 6926533135585865537, guid: b9af4339285842b4fa3e6249a3613418, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1946,9 +1958,33 @@ PrefabInstance:
       propertyPath: m_fontMaterial
       value: 
       objectReference: {fileID: 1960848402}
+    - target: {fileID: 1288350170052179271, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c942b5dddc35bb94d8eec03d8af9f7f4, type: 3}
+    - target: {fileID: 2145332374702887142, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145332374702887142, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145332374702887142, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145332374702887142, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 4622040179758004006, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
       propertyPath: m_Name
       value: Equipment_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229001393074993574, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7372701437437994761, guid: e022dfd0b838dad4ba9f0c3113f355d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2032,7 +2068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2266275666171706206, guid: 311002f049086e44d9233138bd82b91b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.0199995
+      value: -8.49
       objectReference: {fileID: 0}
     - target: {fileID: 2266275666171706206, guid: 311002f049086e44d9233138bd82b91b, type: 3}
       propertyPath: m_LocalPosition.z

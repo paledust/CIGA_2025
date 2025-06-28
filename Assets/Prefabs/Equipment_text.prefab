@@ -447,6 +447,7 @@ MonoBehaviour:
   textMoveSpeed: 4
   textMoveStep: 0.5
   initTextPos: 4
+  recycleLength: 20
 --- !u!4 &7372701437437994761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2504322484881937029, guid: 411dde690d6449a489b373adc9e6b565, type: 3}

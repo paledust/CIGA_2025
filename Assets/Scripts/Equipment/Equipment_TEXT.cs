@@ -16,7 +16,6 @@ public class Equipment_TEXT : Equipment
         text.text = words.GetShowingText();
         text.transform.localPosition = Vector2.right * initTextPos;
         textSize = text.textInfo.characterInfo[text.text.Length].bottomRight.x;
-        Debug.Log(textSize);
         moveTimer = 0;
 
         base.ProcessContent(lastWords);
