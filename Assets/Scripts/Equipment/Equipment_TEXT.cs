@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -15,10 +16,15 @@ public class Equipment_TEXT : Equipment
         var words = lastWords as LastWords_TEXT;
         text.text = words.GetShowingText();
         text.transform.localPosition = Vector2.right * initTextPos;
-        textSize = text.textInfo.characterInfo[text.text.Length].bottomRight.x;
+        StartCoroutine(coroutineGetBounds());
         moveTimer = 0;
 
         base.ProcessContent(lastWords);
+    }
+    IEnumerator coroutineGetBounds()
+    {
+        yield return null;
+        textSize = text.textBounds.size.x;
     }
     void Update()
     {

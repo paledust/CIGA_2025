@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 84347679877167876, guid: 083927891c06be944a1e68322205f5ae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9b9cc34a6dcb96c40adacf186870ade9, type: 3}
     - target: {fileID: 498343906517957837, guid: 083927891c06be944a1e68322205f5ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -51.07
@@ -64,21 +68,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Deads_Apple
       objectReference: {fileID: 0}
-    - target: {fileID: 3304845985085147997, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9754902
       objectReference: {fileID: 0}
     - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
+      propertyPath: m_LocalRotation.x
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
+      propertyPath: m_LocalRotation.y
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
+      propertyPath: m_LocalRotation.z
+      value: -0.2200428
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219547198083458555, guid: 083927891c06be944a1e68322205f5ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -25.423
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

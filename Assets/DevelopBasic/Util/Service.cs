@@ -4,28 +4,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Service{
+    public static int InteractableLayer = LayerMask.NameToLayer("Interactable");
 #region HelperFunction
     /// <summary>
     /// Return a list of all active and inactive objects of T type in loaded scenes.
     /// </summary>
     /// <typeparam name="T">Object Type</typeparam>
     /// <returns></returns>
-    public static T[] FindComponentsOfTypeIncludingDisable<T>(){
+    public static T[] FindComponentsOfTypeIncludingDisable<T>()
+    {
         int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
-        var MatchObjects = new List<T> ();
+        var MatchObjects = new List<T>();
 
-        for(int i=0; i<sceneCount; i++){
-            var scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt (i);
-            
-            var RootObjects = scene.GetRootGameObjects ();
+        for (int i = 0; i < sceneCount; i++)
+        {
+            var scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
 
-            foreach (var obj in RootObjects) {
-                var Matches = obj.GetComponentsInChildren<T> (true);
-                MatchObjects.AddRange (Matches);
+            var RootObjects = scene.GetRootGameObjects();
+
+            foreach (var obj in RootObjects)
+            {
+                var Matches = obj.GetComponentsInChildren<T>(true);
+                MatchObjects.AddRange(Matches);
             }
         }
 
-        return MatchObjects.ToArray ();
+        return MatchObjects.ToArray();
     }
     public static void Shuffle<T>(ref T[] elements){
         var rnd = new System.Random();
