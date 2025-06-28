@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35de835c410b12845b4edad60356a79f, type: 3}
   m_Name: Apple_IMAGE
   m_EditorClassIdentifier: 
-  mark:
-  - Red
-  showingImg: {fileID: 405182146505222058, guid: 4dffe6eab57ca4e4ba2f967307bd1c29, type: 3}
+  mark: []
+  showingImg: {fileID: 0}

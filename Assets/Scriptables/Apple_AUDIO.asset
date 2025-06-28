@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7dccc6d53e3124da20193b955654f6, type: 3}
   m_Name: Apple_AUDIO
   m_EditorClassIdentifier: 
-  mark:
-  - Sad
-  audioText: testtest ==0.5->check,check and check ==1->and finally==2
+  mark: []
+  audioText: 
