@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9b9cc34a6dcb96c40adacf186870ade9
+guid: 9d5fe7b672ecfd84abbcc8e791ee3fef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7076246925737148144
-    second: sprite_phone_0
+      213: -7299120685304472064
+    second: mp3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprite_phone_0
+      name: mp3_0
       rect:
         serializedVersion: 2
-        x: 11
+        x: 0
         y: 0
-        width: 93
-        height: 202
+        width: 320
+        height: 166
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 011cc70a9ee1ccd90800000000000000
-      internalID: -7076246925737148144
+      spriteID: 00e98bbb86054ba90800000000000000
+      internalID: -7299120685304472064
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sprite_phone_0: -7076246925737148144
+      mp3_0: -7299120685304472064
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
