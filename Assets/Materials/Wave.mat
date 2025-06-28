@@ -60,7 +60,7 @@ Material:
     - _CenterValue: 0.41
     - _Emission: 5
     - _EnableExternalAlpha: 0
-    - _NoiseScale: 3
+    - _NoiseScale: 2
     - _NoiseSpeed: -0.1
     - _NoiseStrength: 0.05
     - _Shear: -0.4
@@ -69,7 +69,7 @@ Material:
     - _WaveFreq: 30
     - _WaveFreq2: 25
     - _WaveOffset: -0.5
-    - _WaveSpeed: 3
+    - _WaveSpeed: 10
     - _WaveSpeed2: -4
     - _WaveSquash: 1
     - _WaveWidth: 0.02

@@ -1,11 +1,16 @@
 using DG.Tweening;
+using SimpleAudioSystem;
 using UnityEngine;
 
 public class Equipment_AUDIO : Equipment
 {
-    [SerializeField] private PerRenderWave perRenderWave;
     [SerializeField] private Equipment_AUDIO_CommandManager commandManager;
+    [SerializeField] private PerRenderWave perRenderWave;
+    [SerializeField] private AudioSource staticLoop;
+    [SerializeField] private string staticClip;
+    private float audioTime = 0;
     readonly static string[] separators = new string[] { "==", "->" };
+
     public override void ProcessContent(LastWords_SO lastWords)
     {
         base.ProcessContent(lastWords);
@@ -20,7 +25,7 @@ public class Equipment_AUDIO : Equipment
             float duration = -1f;
             if (keyAndValue.Length > 1) float.TryParse(keyAndValue[1], out duration);
             frontCommand = frontCommand.QueueCommand(new EQ_Show_Audio(text, duration))
-                                       .QueueCommand(new C_Wait<Equipment_AUDIO>(0.1f));
+                                       .QueueCommand(new C_Wait<Equipment_AUDIO>(0.2f));
         }
         commandManager.AddCommand(headCommand);
     }
@@ -29,9 +34,20 @@ public class Equipment_AUDIO : Equipment
         base.ClearContent();
         commandManager.AbortCommands();
     }
-    public void TuneWaveSignal(float ampControl)
+    void TuneWaveSignal(float ampControl)
     {
         DOTween.Kill(perRenderWave);
-        DOTween.To(() => perRenderWave.amplitudeControl, (x) => perRenderWave.amplitudeControl = x, ampControl, 0.5f);
+        DOTween.To(() => perRenderWave.amplitudeControl, (x) => perRenderWave.amplitudeControl = x, ampControl, 0.1f).SetEase(Ease.InQuad);
+    }
+    public void OnGetSignal()
+    {
+        TuneWaveSignal(1);
+        AudioManager.Instance.PlaySoundEffectLoopSchedule(staticLoop, staticClip, staticLoop.volume, audioTime);
+    }
+    public void OnLostSignal()
+    {
+        TuneWaveSignal(0f);
+        audioTime = staticLoop.time;
+        staticLoop.Stop();
     }
 }

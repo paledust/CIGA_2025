@@ -1073,6 +1073,7 @@ MonoBehaviour:
   introTime: 3
   entryTime: 1
   deadReader: {fileID: 2007940075}
+  roomToneClip: amb_roomtone
 --- !u!4 &1222538358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3736033597586809902, guid: 17bf54152a795a5408e7f042e5ec0505, type: 3}

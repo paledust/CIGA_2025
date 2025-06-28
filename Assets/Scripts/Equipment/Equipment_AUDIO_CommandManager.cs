@@ -24,12 +24,12 @@ public class EQ_Show_Audio : EQ_AUDIO_Command
         if (!isExcuted)
         {
             isExcuted = true;
-            context.TuneWaveSignal(1.0f);
+            context.OnGetSignal();
         }
         timer += Time.deltaTime;
         if (timer > duration)
         {
-            context.TuneWaveSignal(0.0f);
+            context.OnLostSignal();
             SetStatus(CommandStatus.Success);
             return;
         }

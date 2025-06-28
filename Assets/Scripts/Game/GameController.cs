@@ -1,3 +1,4 @@
+using SimpleAudioSystem;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private float entryTime = 2f;
     [Header("Read Deads")]
     [SerializeField] private DeadReader deadReader;
+    [Header("Init Game")]
+    [SerializeField] private string roomToneClip;
 
     private GameState currentState;
     private int currentDeadsIndex = 0;
@@ -24,6 +27,7 @@ public class GameController : MonoBehaviour
     {
         currentState = new IntroState(introTime);
         currentDeadsIndex = startDisposeObjIndex;
+        AudioManager.Instance.PlayAmbience(roomToneClip, true, 1, true);
     }
     void Update()
     {

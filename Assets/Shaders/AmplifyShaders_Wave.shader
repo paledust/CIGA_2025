@@ -19,7 +19,7 @@ Shader "AmplifyShaders/Sprite/Wave"
 		_Emission( "Emission", Float ) = 1
 		_NoiseStrength( "NoiseStrength", Range( 0, 1 ) ) = 0
 		_NoiseSpeed( "NoiseSpeed", Float ) = -0.1
-		_NoiseScale( "NoiseScale", Float ) = 1
+		_NoiseScale( "NoiseScale", Float ) = 2
 		_AmpControl( "AmpControl", Range( 0, 1 ) ) = 0
 		_Center( "Center", Range( 0, 1 ) ) = 0
 		_CenterValue( "CenterValue", Float ) = 0
@@ -114,8 +114,8 @@ Shader "AmplifyShaders/Sprite/Wave"
 			float _CenterSmooth;
 			float _CenterValue;
 			float _NoiseStrength;
-			float _NoiseScale;
 			float _NoiseSpeed;
+			float _NoiseScale;
 			float _AmpControl;
 			float _Center;
 			float _WaveAmp;
@@ -158,6 +158,39 @@ Shader "AmplifyShaders/Sprite/Wave"
 				float _EnableAlphaTexture;
 			#endif
 
+					float2 voronoihash99( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi99( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0; int i, j;
+						for ( j = -1; j <= 1; j++ )
+						{
+							for ( i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash99( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
 			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
@@ -236,18 +269,26 @@ Shader "AmplifyShaders/Sprite/Wave"
 				float temp_output_48_0 = (shearUV46).x;
 				float mulTime6_g2 = _TimeParameters.x * _WaveSpeed2;
 				float mulTime6_g1 = _TimeParameters.x * _WaveSpeed;
+				float time99 = 0.0;
+				float2 voronoiSmoothId99 = 0;
 				float mulTime58 = _TimeParameters.x * _NoiseSpeed;
-				float2 temp_cast_0 = (( (shearUV46).x + mulTime58 )).xx;
-				float simplePerlin2D61 = snoise( temp_cast_0*_NoiseScale );
+				float temp_output_57_0 = ( (shearUV46).x + mulTime58 );
+				float2 temp_cast_0 = (temp_output_57_0).xx;
+				float2 coords99 = temp_cast_0 * ( _NoiseScale * 0.8 );
+				float2 id99 = 0;
+				float2 uv99 = 0;
+				float voroi99 = voronoi99( coords99, time99, id99, uv99, 0, voronoiSmoothId99 );
+				float2 temp_cast_1 = (temp_output_57_0).xx;
+				float simplePerlin2D61 = snoise( temp_cast_1*_NoiseScale );
 				simplePerlin2D61 = simplePerlin2D61*0.5 + 0.5;
-				float noise59 = ( (simplePerlin2D61*2.0 + -1.0) * _NoiseStrength );
+				float noise59 = ( ( (voroi99*2.0 + -1.0) + (simplePerlin2D61*2.0 + -1.0) ) * _NoiseStrength );
 				float smoothstepResult89 = smoothstep( _CenterValue , ( _CenterValue + _CenterSmooth ) , sin( ( (IN.texCoord0.xy).x * PI ) ));
 				float lerpResult85 = lerp( 1.0 , smoothstepResult89 , _Center);
 				float center83 = lerpResult85;
 				float temp_output_94_0 = ( ( ( ( ( sin( ( ( ( _WaveFreq2 * temp_output_48_0 ) + mulTime6_g2 ) * PI ) ) * _WaveAmp2 ) + ( sin( ( ( ( _WaveFreq * temp_output_48_0 ) + mulTime6_g1 ) * PI ) ) * _WaveAmp ) ) * _AmpControl ) + noise59 ) * center83 );
-				float4 temp_cast_1 = (( _Emission * ( tex2D( _MainTex, IN.texCoord0.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
+				float4 temp_cast_2 = (( _Emission * ( tex2D( _MainTex, IN.texCoord0.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
 				
-				float4 Color = temp_cast_1;
+				float4 Color = temp_cast_2;
 
 				#if ETC1_EXTERNAL_ALPHA
 					float4 alpha = SAMPLE_TEXTURE2D(_AlphaTex, sampler_AlphaTex, IN.texCoord0.xy);
@@ -341,8 +382,8 @@ Shader "AmplifyShaders/Sprite/Wave"
 			float _CenterSmooth;
 			float _CenterValue;
 			float _NoiseStrength;
-			float _NoiseScale;
 			float _NoiseSpeed;
+			float _NoiseScale;
 			float _AmpControl;
 			float _Center;
 			float _WaveAmp;
@@ -385,6 +426,39 @@ Shader "AmplifyShaders/Sprite/Wave"
 				float _EnableAlphaTexture;
 			#endif
 
+					float2 voronoihash99( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi99( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0; int i, j;
+						for ( j = -1; j <= 1; j++ )
+						{
+							for ( i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash99( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
 			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
@@ -463,18 +537,26 @@ Shader "AmplifyShaders/Sprite/Wave"
 				float temp_output_48_0 = (shearUV46).x;
 				float mulTime6_g2 = _TimeParameters.x * _WaveSpeed2;
 				float mulTime6_g1 = _TimeParameters.x * _WaveSpeed;
+				float time99 = 0.0;
+				float2 voronoiSmoothId99 = 0;
 				float mulTime58 = _TimeParameters.x * _NoiseSpeed;
-				float2 temp_cast_0 = (( (shearUV46).x + mulTime58 )).xx;
-				float simplePerlin2D61 = snoise( temp_cast_0*_NoiseScale );
+				float temp_output_57_0 = ( (shearUV46).x + mulTime58 );
+				float2 temp_cast_0 = (temp_output_57_0).xx;
+				float2 coords99 = temp_cast_0 * ( _NoiseScale * 0.8 );
+				float2 id99 = 0;
+				float2 uv99 = 0;
+				float voroi99 = voronoi99( coords99, time99, id99, uv99, 0, voronoiSmoothId99 );
+				float2 temp_cast_1 = (temp_output_57_0).xx;
+				float simplePerlin2D61 = snoise( temp_cast_1*_NoiseScale );
 				simplePerlin2D61 = simplePerlin2D61*0.5 + 0.5;
-				float noise59 = ( (simplePerlin2D61*2.0 + -1.0) * _NoiseStrength );
+				float noise59 = ( ( (voroi99*2.0 + -1.0) + (simplePerlin2D61*2.0 + -1.0) ) * _NoiseStrength );
 				float smoothstepResult89 = smoothstep( _CenterValue , ( _CenterValue + _CenterSmooth ) , sin( ( (IN.texCoord0.xy).x * PI ) ));
 				float lerpResult85 = lerp( 1.0 , smoothstepResult89 , _Center);
 				float center83 = lerpResult85;
 				float temp_output_94_0 = ( ( ( ( ( sin( ( ( ( _WaveFreq2 * temp_output_48_0 ) + mulTime6_g2 ) * PI ) ) * _WaveAmp2 ) + ( sin( ( ( ( _WaveFreq * temp_output_48_0 ) + mulTime6_g1 ) * PI ) ) * _WaveAmp ) ) * _AmpControl ) + noise59 ) * center83 );
-				float4 temp_cast_1 = (( _Emission * ( tex2D( _MainTex, IN.texCoord0.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
+				float4 temp_cast_2 = (( _Emission * ( tex2D( _MainTex, IN.texCoord0.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
 				
-				float4 Color = temp_cast_1;
+				float4 Color = temp_cast_2;
 
 				#if ETC1_EXTERNAL_ALPHA
 					float4 alpha = SAMPLE_TEXTURE2D( _AlphaTex, sampler_AlphaTex, IN.texCoord0.xy );
@@ -557,8 +639,8 @@ Shader "AmplifyShaders/Sprite/Wave"
 			float _CenterSmooth;
 			float _CenterValue;
 			float _NoiseStrength;
-			float _NoiseScale;
 			float _NoiseSpeed;
+			float _NoiseScale;
 			float _AmpControl;
 			float _Center;
 			float _WaveAmp;
@@ -593,6 +675,39 @@ Shader "AmplifyShaders/Sprite/Wave"
             int _ObjectId;
             int _PassValue;
 
+					float2 voronoihash99( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi99( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0; int i, j;
+						for ( j = -1; j <= 1; j++ )
+						{
+							for ( i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash99( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
 			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
@@ -664,18 +779,26 @@ Shader "AmplifyShaders/Sprite/Wave"
 				float temp_output_48_0 = (shearUV46).x;
 				float mulTime6_g2 = _TimeParameters.x * _WaveSpeed2;
 				float mulTime6_g1 = _TimeParameters.x * _WaveSpeed;
+				float time99 = 0.0;
+				float2 voronoiSmoothId99 = 0;
 				float mulTime58 = _TimeParameters.x * _NoiseSpeed;
-				float2 temp_cast_0 = (( (shearUV46).x + mulTime58 )).xx;
-				float simplePerlin2D61 = snoise( temp_cast_0*_NoiseScale );
+				float temp_output_57_0 = ( (shearUV46).x + mulTime58 );
+				float2 temp_cast_0 = (temp_output_57_0).xx;
+				float2 coords99 = temp_cast_0 * ( _NoiseScale * 0.8 );
+				float2 id99 = 0;
+				float2 uv99 = 0;
+				float voroi99 = voronoi99( coords99, time99, id99, uv99, 0, voronoiSmoothId99 );
+				float2 temp_cast_1 = (temp_output_57_0).xx;
+				float simplePerlin2D61 = snoise( temp_cast_1*_NoiseScale );
 				simplePerlin2D61 = simplePerlin2D61*0.5 + 0.5;
-				float noise59 = ( (simplePerlin2D61*2.0 + -1.0) * _NoiseStrength );
+				float noise59 = ( ( (voroi99*2.0 + -1.0) + (simplePerlin2D61*2.0 + -1.0) ) * _NoiseStrength );
 				float smoothstepResult89 = smoothstep( _CenterValue , ( _CenterValue + _CenterSmooth ) , sin( ( (IN.ase_texcoord.xy).x * PI ) ));
 				float lerpResult85 = lerp( 1.0 , smoothstepResult89 , _Center);
 				float center83 = lerpResult85;
 				float temp_output_94_0 = ( ( ( ( ( sin( ( ( ( _WaveFreq2 * temp_output_48_0 ) + mulTime6_g2 ) * PI ) ) * _WaveAmp2 ) + ( sin( ( ( ( _WaveFreq * temp_output_48_0 ) + mulTime6_g1 ) * PI ) ) * _WaveAmp ) ) * _AmpControl ) + noise59 ) * center83 );
-				float4 temp_cast_1 = (( _Emission * ( tex2D( _MainTex, IN.ase_texcoord.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
+				float4 temp_cast_2 = (( _Emission * ( tex2D( _MainTex, IN.ase_texcoord.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
 				
-				float4 Color = temp_cast_1;
+				float4 Color = temp_cast_2;
 
 				half4 outColor = half4(_ObjectId, _PassValue, 1.0, 1.0);
 				return outColor;
@@ -738,8 +861,8 @@ Shader "AmplifyShaders/Sprite/Wave"
 			float _CenterSmooth;
 			float _CenterValue;
 			float _NoiseStrength;
-			float _NoiseScale;
 			float _NoiseSpeed;
+			float _NoiseScale;
 			float _AmpControl;
 			float _Center;
 			float _WaveAmp;
@@ -773,6 +896,39 @@ Shader "AmplifyShaders/Sprite/Wave"
 
             float4 _SelectionID;
 
+					float2 voronoihash99( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi99( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0; int i, j;
+						for ( j = -1; j <= 1; j++ )
+						{
+							for ( i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash99( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
 			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
 			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
@@ -844,18 +1000,26 @@ Shader "AmplifyShaders/Sprite/Wave"
 				float temp_output_48_0 = (shearUV46).x;
 				float mulTime6_g2 = _TimeParameters.x * _WaveSpeed2;
 				float mulTime6_g1 = _TimeParameters.x * _WaveSpeed;
+				float time99 = 0.0;
+				float2 voronoiSmoothId99 = 0;
 				float mulTime58 = _TimeParameters.x * _NoiseSpeed;
-				float2 temp_cast_0 = (( (shearUV46).x + mulTime58 )).xx;
-				float simplePerlin2D61 = snoise( temp_cast_0*_NoiseScale );
+				float temp_output_57_0 = ( (shearUV46).x + mulTime58 );
+				float2 temp_cast_0 = (temp_output_57_0).xx;
+				float2 coords99 = temp_cast_0 * ( _NoiseScale * 0.8 );
+				float2 id99 = 0;
+				float2 uv99 = 0;
+				float voroi99 = voronoi99( coords99, time99, id99, uv99, 0, voronoiSmoothId99 );
+				float2 temp_cast_1 = (temp_output_57_0).xx;
+				float simplePerlin2D61 = snoise( temp_cast_1*_NoiseScale );
 				simplePerlin2D61 = simplePerlin2D61*0.5 + 0.5;
-				float noise59 = ( (simplePerlin2D61*2.0 + -1.0) * _NoiseStrength );
+				float noise59 = ( ( (voroi99*2.0 + -1.0) + (simplePerlin2D61*2.0 + -1.0) ) * _NoiseStrength );
 				float smoothstepResult89 = smoothstep( _CenterValue , ( _CenterValue + _CenterSmooth ) , sin( ( (IN.ase_texcoord.xy).x * PI ) ));
 				float lerpResult85 = lerp( 1.0 , smoothstepResult89 , _Center);
 				float center83 = lerpResult85;
 				float temp_output_94_0 = ( ( ( ( ( sin( ( ( ( _WaveFreq2 * temp_output_48_0 ) + mulTime6_g2 ) * PI ) ) * _WaveAmp2 ) + ( sin( ( ( ( _WaveFreq * temp_output_48_0 ) + mulTime6_g1 ) * PI ) ) * _WaveAmp ) ) * _AmpControl ) + noise59 ) * center83 );
-				float4 temp_cast_1 = (( _Emission * ( tex2D( _MainTex, IN.ase_texcoord.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
+				float4 temp_cast_2 = (( _Emission * ( tex2D( _MainTex, IN.ase_texcoord.xy ).a * saturate( ( step( temp_output_38_0 , ( temp_output_94_0 + _WaveWidth ) ) - step( temp_output_38_0 , ( temp_output_94_0 - _WaveWidth ) ) ) ) ) )).xxxx;
 				
-				float4 Color = temp_cast_1;
+				float4 Color = temp_cast_2;
 				half4 outColor = _SelectionID;
 				return outColor;
 			}
@@ -877,20 +1041,23 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.
 Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;42;-2048,1232;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.DynamicAppendNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;45;-1904,1232;Inherit;False;FLOAT2;4;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;46;-1760,1232;Inherit;False;shearUV;-1;True;1;0;FLOAT2;0,0;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;54;-2832,816;Inherit;False;46;shearUV;1;0;OBJECT;;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;62;-2816,912;Inherit;False;Property;_NoiseSpeed;NoiseSpeed;12;0;Create;True;0;0;0;False;0;False;-0.1;-0.1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;54;-2832,816;Inherit;False;46;shearUV;1;0;OBJECT;;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.ComponentMaskNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;55;-2656,816;Inherit;False;True;False;True;True;1;0;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleTimeNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;58;-2624,912;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;69;-2544,1056;Inherit;False;Property;_NoiseScale;NoiseScale;13;0;Create;True;0;0;0;False;0;False;2;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TexCoordVertexDataNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;88;-4144,384;Inherit;False;0;2;0;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;57;-2448,848;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;69;-2464,1024;Inherit;False;Property;_NoiseScale;NoiseScale;13;0;Create;True;0;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;96;-2432,576;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.8;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ComponentMaskNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;79;-3936,384;Inherit;False;True;False;True;True;1;0;FLOAT2;0,0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.NoiseGeneratorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;61;-2320,848;Inherit;False;Simplex2D;True;False;2;0;FLOAT2;0,0;False;1;FLOAT;10;False;1;FLOAT;0
+Node;AmplifyShaderEditor.NoiseGeneratorNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;61;-2320,848;Inherit;True;Simplex2D;True;False;2;0;FLOAT2;0,0;False;1;FLOAT;10;False;1;FLOAT;0
+Node;AmplifyShaderEditor.VoronoiNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;99;-2272,560;Inherit;False;0;0;1;0;1;False;1;False;False;False;4;0;FLOAT2;0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;0;False;3;FLOAT;0;FLOAT2;1;FLOAT2;2
 Node;AmplifyShaderEditor.PiNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;81;-3728,384;Inherit;False;1;0;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;90;-3728,576;Inherit;False;Property;_CenterValue;CenterValue;16;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;91;-3712,704;Inherit;False;Property;_CenterSmooth;CenterSmooth;17;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;47;-2352,-64;Inherit;False;46;shearUV;1;0;OBJECT;;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.ScaleAndOffsetNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;66;-2096,848;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;2;False;2;FLOAT;-1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ScaleAndOffsetNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;97;-2048,672;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;2;False;2;FLOAT;-1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SinOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;82;-3552,384;Inherit;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;92;-3523.361,649.725;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;70;-2128,-304;Inherit;False;Property;_WaveSpeed2;WaveSpeed2;6;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
@@ -901,6 +1068,7 @@ Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, 
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;10;-2096,288;Inherit;False;Property;_WaveAmp;WaveAmp;1;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ComponentMaskNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;48;-2176,-64;Inherit;False;True;False;True;True;1;0;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;68;-2080,1056;Inherit;False;Property;_NoiseStrength;NoiseStrength;11;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;98;-1803.128,797.2212;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;67;-1872,960;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;87;-2880,656;Inherit;False;Property;_Center;Center;15;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode, AmplifyShaderEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;86;-2880,352;Inherit;False;Constant;_Float0;Float 0;15;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
@@ -948,16 +1116,22 @@ WireConnection;55;0;54;0
 WireConnection;58;0;62;0
 WireConnection;57;0;55;0
 WireConnection;57;1;58;0
+WireConnection;96;0;69;0
 WireConnection;79;0;88;0
 WireConnection;61;0;57;0
 WireConnection;61;1;69;0
+WireConnection;99;0;57;0
+WireConnection;99;2;96;0
 WireConnection;81;0;79;0
 WireConnection;66;0;61;0
+WireConnection;97;0;99;0
 WireConnection;82;0;81;0
 WireConnection;92;0;90;0
 WireConnection;92;1;91;0
 WireConnection;48;0;47;0
-WireConnection;67;0;66;0
+WireConnection;98;0;97;0
+WireConnection;98;1;66;0
+WireConnection;67;0;98;0
 WireConnection;67;1;68;0
 WireConnection;89;0;82;0
 WireConnection;89;1;90;0
@@ -1004,4 +1178,4 @@ WireConnection;52;0;51;0
 WireConnection;52;1;36;0
 WireConnection;1;1;52;0
 ASEEND*/
-//CHKSM=BB7267C1AFB8F6D6C7A977AB6D743A756E9341E5
+//CHKSM=BE7347A955019842F4F9073C82FE124182446E76

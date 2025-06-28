@@ -147,7 +147,18 @@ namespace SimpleAudioSystem{
 
             return clip;
         }
-        public void PlaySoundEffect(AudioSource targetSource, string clip, float volumeScale, float delay, Action completeCallback=null)=>
+        public void PlaySoundEffectLoopSchedule(AudioSource targetSource, string clip_name, float volumeScale, float scheduleTime)
+        {
+            AudioClip clip = audioInfo.GetSFXClipByName(clip_name);
+            if(targetSource.clip != clip)
+                targetSource.clip = clip;
+                
+            targetSource.loop = true;
+            targetSource.volume = volumeScale;
+            targetSource.Play();
+            targetSource.time = scheduleTime;
+        }
+        public void PlaySoundEffect(AudioSource targetSource, string clip, float volumeScale, float delay, Action completeCallback = null) =>
             StartCoroutine(coroutineDelaySFX(targetSource, clip, volumeScale, delay, completeCallback));
         public void PlaySoundEffect_WithFinishCallback(AudioSource targetSource, string clip, float volumScale, Action finishCallback=null)=>
             StartCoroutine(coroutineSFX_WithFinishAction(targetSource, clip, volumScale, finishCallback));
