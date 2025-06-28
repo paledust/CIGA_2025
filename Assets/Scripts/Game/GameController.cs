@@ -5,22 +5,24 @@ public class GameController : MonoBehaviour
     [SerializeField, ShowOnly] private GameStateType currentStateType = GameStateType.None;
     [Header("dispose obejct")]
     [SerializeField] private int startDisposeObjIndex = 0;
-    [SerializeField] private DeadObject[] disposeObjectsInLine;
+    [SerializeField] private DeadObject[] deadsInLine;
     [Header("ref Point")]
     [SerializeField] private Transform preparePoint;
     [SerializeField] private Transform viewPoint;
     [Header("Timing")]
     [SerializeField] private float introTime = 3;
     [SerializeField] private float entryTime = 2f;
+    [Header("Read Deads")]
+    [SerializeField] private DeadReader deadReader;
 
     private GameState currentState;
-    private int currentDisposeIndex = 0;
+    private int currentDeadsIndex = 0;
 
     #region Unity Life Cycle
     void Start()
     {
         currentState = new IntroState(introTime);
-        currentDisposeIndex = startDisposeObjIndex;
+        currentDeadsIndex = startDisposeObjIndex;
     }
     void Update()
     {
@@ -35,20 +37,24 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Game Function
-    public void PrepareDisposeObj()
+    public void PrepareDeadObj()
     {
-        disposeObjectsInLine[currentDisposeIndex].gameObject.SetActive(true);
-        disposeObjectsInLine[currentDisposeIndex].transform.position = preparePoint.position;
+        deadsInLine[currentDeadsIndex].gameObject.SetActive(true);
+        deadsInLine[currentDeadsIndex].transform.position = preparePoint.position;
     }
     public EntryState.EntryData GetEntryData()
     {
         return new EntryState.EntryData()
         {
-            entryObject = disposeObjectsInLine[currentDisposeIndex],
+            entryObject = deadsInLine[currentDeadsIndex],
             startPos = preparePoint.position,
             targetPos = viewPoint.position,
             tweenDuration = entryTime
         };
+    }
+    public void ReadDeadObject(DeadObject deads)
+    {
+        deadReader.ReadDeadObject(deads);
     }
     #endregion
 }

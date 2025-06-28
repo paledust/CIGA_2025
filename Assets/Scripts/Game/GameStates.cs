@@ -8,7 +8,7 @@ public enum GameStateType
     Entry, //物体进入
     GetMessage, //获取遗言
     ChooseMark, //选择标签
-    Dispose, //报废物品
+    Dead, //报废物品
     Ending //结局
 }
 public abstract class GameState : State<GameController>
@@ -75,11 +75,15 @@ public class EntryState : GameState
 //获取物品遗言环节
 public class GetMessageState : GameState
 {
-    private DeadObject disposeObject;
+    private DeadObject deadObject;
     public override GameStateType m_gameState => GameStateType.GetMessage;
     public GetMessageState(DeadObject targetObject)
     {
-        disposeObject = targetObject;
+        deadObject = targetObject;
+    }
+    public override void EnterState(GameController context)
+    {
+        context.ReadDeadObject(deadObject);
     }
     public override State<GameController> UpdateState(GameController context)
     {
@@ -95,9 +99,9 @@ public class ChooseMark : GameState
 }
 
 //焚烧物品环节
-public class DisposeEntry : GameState
+public class DeadEntry : GameState
 { 
-    public override GameStateType m_gameState => GameStateType.Dispose;
+    public override GameStateType m_gameState => GameStateType.Dead;
 }
 
 //游戏结局
