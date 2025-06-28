@@ -97,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3673440316940736367}
   - component: {fileID: 682888268570888209}
+  - component: {fileID: 5678876791549125113}
   m_Layer: 0
   m_Name: wave
   m_TagString: Untagged
@@ -174,6 +175,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5678876791549125113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4488876574521073522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9516f178042c74747b92fc1b4e6a9f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUpdating: 1
+  meshRenderer: {fileID: 682888268570888209}
+  amplitudeControl: 0
 --- !u!1001 &4818527486645648836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,6 +319,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 339166228271022762, guid: 411dde690d6449a489b373adc9e6b565, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4477000981927767238}
+    - targetCorrespondingSourceObject: {fileID: 339166228271022762, guid: 411dde690d6449a489b373adc9e6b565, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5667665041774010988}
   m_SourcePrefab: {fileID: 100100000, guid: 411dde690d6449a489b373adc9e6b565, type: 3}
 --- !u!212 &4084861071231584236 stripped
 SpriteRenderer:
@@ -327,6 +346,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ledRender: {fileID: 4084861071231584236}
+  perRenderWave: {fileID: 5678876791549125113}
+  commandManager: {fileID: 5667665041774010988}
+--- !u!114 &5667665041774010988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073917249666908014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4208f65e3bd4d0841a5eb57231c970f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 4477000981927767238}
 --- !u!4 &6926533135585865537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2504322484881937029, guid: 411dde690d6449a489b373adc9e6b565, type: 3}

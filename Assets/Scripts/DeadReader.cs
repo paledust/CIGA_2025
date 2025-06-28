@@ -6,18 +6,6 @@ public enum WordsType
     Audio,
     Image
 }
-public struct WaveShapeData
-{
-    public float waveLength;
-    public float waveFreq;
-    public float waveSpeed;
-    public WaveShapeData(float length, float freq, float speed)
-    {
-        waveLength = length;
-        waveFreq = freq;
-        waveSpeed = speed;
-    }
-}
 
 public class DeadReader : MonoBehaviour
 {
@@ -38,5 +26,11 @@ public class DeadReader : MonoBehaviour
         {
             equipment_IMG.ProcessContent(deads.GetImageData());
         }
+    }
+    public void ClearRead()
+    {
+        equipment_TEXT.ClearContent();
+        equipment_AUDIO.ClearContent();
+        equipment_IMG.ClearContent();
     }
 }

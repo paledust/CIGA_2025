@@ -4,8 +4,6 @@ using UnityEngine;
 public class LastWords_AUDIO : LastWords_SO
 {
     public override WordsType wordsType => WordsType.Audio;
-    [SerializeField] private float waveLength = 1;
-    [SerializeField] private float waveFreq = 1;
-    [SerializeField] private float waveSpeed = 1;
-    public WaveShapeData GetWaveShapeData() => new WaveShapeData(waveLength, waveFreq, waveSpeed);
+    [SerializeField, TextArea] private string audioText;
+    public string GetAudioText() => audioText;
 }

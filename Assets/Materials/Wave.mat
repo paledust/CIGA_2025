@@ -61,7 +61,7 @@ Material:
     - _Emission: 5
     - _EnableExternalAlpha: 0
     - _NoiseScale: 3
-    - _NoiseSpeed: -0.5
+    - _NoiseSpeed: -0.1
     - _NoiseStrength: 0.05
     - _Shear: -0.4
     - _WaveAmp: 0.12
@@ -70,7 +70,7 @@ Material:
     - _WaveFreq2: 25
     - _WaveOffset: -0.5
     - _WaveSpeed: 3
-    - _WaveSpeed2: -10
+    - _WaveSpeed2: -4
     - _WaveSquash: 1
     - _WaveWidth: 0.02
     - _ZWrite: 0

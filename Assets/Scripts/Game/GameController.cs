@@ -56,10 +56,8 @@ public class GameController : MonoBehaviour
         currentDeadsIndex++;
         return entryData;
     }
-    public void ReadDeadObject(DeadObject deads)
-    {
-        deadReader.ReadDeadObject(deads);
-    }
+    public void ReadDeadObject(DeadObject deads)=>deadReader.ReadDeadObject(deads);
+    public void ClearRead() => deadReader.ClearRead();
     public Vector3 GetTrashPos() => trashPoint.position;
     #endregion
 }
