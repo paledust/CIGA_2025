@@ -72,7 +72,7 @@ Material:
     - _WaveSpeed: 10
     - _WaveSpeed2: -4
     - _WaveSquash: 1
-    - _WaveWidth: 0.02
+    - _WaveWidth: 0.01
     - _ZWrite: 0
     - _noiseStrength: 0.1
     m_Colors:

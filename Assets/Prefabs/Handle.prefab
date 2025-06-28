@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 2254543069976740092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.51, z: 0}
+  m_LocalPosition: {x: 0, y: 1.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -301,11 +301,11 @@ MonoBehaviour:
   isLocked: 1
   ratio: 0
   handle_root: {fileID: 3006033128445317630}
-  handleOffset: 0.4
-  handleScale: 0.3
+  handleOffset: 1.2
+  handleScale: 0.32
   head_root: {fileID: 4843882473563825268}
-  headOffset: 0.9
-  headScale: 0.85
+  headOffset: 1.61
+  headScale: 0.8
   shakeCurve:
     serializedVersion: 2
     m_Curve:
