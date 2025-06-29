@@ -79,22 +79,58 @@ public class EntryState : GameState
 public class GetMessageState : GameState
 {
     private DeadObject deadObject;
-    private bool trashFlag = false;
+    private bool insertFlag = false;
 
     public override GameStateType m_gameState => GameStateType.GetMessage;
 
     public GetMessageState(DeadObject targetObject)
     {
-        trashFlag = false;
+        insertFlag = false;
         deadObject = targetObject;
     }
     public override void EnterState(GameController context)
     {
         context.ReadDeadObject(deadObject);
+        EventHandler.E_OnInsertLabel += InsertLabelHandler;
+    }
+    public override void ExitState(GameController context)
+    {
+        EventHandler.E_OnInsertLabel -= InsertLabelHandler;
+    }
+    public override State<GameController> UpdateState(GameController context)
+    {
+        if (insertFlag)
+        {
+            return new ChooseMark(deadObject);
+        }
+        return null;
+    }
+    void InsertLabelHandler(DragableNotes note) => insertFlag = true;
+}
+
+//选择物品墓志铭环节
+public class ChooseMark : GameState
+{
+    public override GameStateType m_gameState => GameStateType.ChooseMark;
+    private GameController context;
+    private DeadObject deadObject;
+    private bool hasRead = false;
+    private bool trashFlag = false;
+    public ChooseMark(DeadObject deadObject)
+    {
+        this.deadObject = deadObject;
+    }
+    public override void EnterState(GameController context)
+    {
+        base.EnterState(context);
+        this.context = context;
+        EventHandler.E_AfterReadLabel += AfterLabelHandler;
         EventHandler.E_OnTrashDeads += TrashDeadsHandler;
     }
     public override void ExitState(GameController context)
     {
+        base.ExitState(context);
+        EventHandler.E_AfterReadLabel -= AfterLabelHandler;
         EventHandler.E_OnTrashDeads -= TrashDeadsHandler;
     }
     public override State<GameController> UpdateState(GameController context)
@@ -105,17 +141,15 @@ public class GetMessageState : GameState
         }
         return null;
     }
-    void TrashDeadsHandler()
+    void TrashDeadsHandler() => trashFlag = true;
+    void AfterLabelHandler()
     {
-        trashFlag = true;
+        if (!hasRead)
+        {
+            hasRead = true;
+            context.StartGateOpenSeq();
+        }
     }
-
-}
-
-//选择物品墓志铭环节
-public class ChooseMark : GameState
-{ 
-    public override GameStateType m_gameState => GameStateType.ChooseMark;
 }
 
 //焚烧物品环节
@@ -127,6 +161,7 @@ public class DeadEntry : GameState
     private Vector3 startScale;
     private float trashTimer = 0;
     private bool deadsTrashed = false;
+    private bool reset = false;
     public override GameStateType m_gameState => GameStateType.Dead;
 
     public DeadEntry(DeadObject deadObject)
@@ -152,14 +187,18 @@ public class DeadEntry : GameState
         if (trashTimer >= 0.5f && !deadsTrashed)
         {
             deadsTrashed = true;
+            context.ClearDeads(deadObject);
+        }
+        if (trashTimer >= 2f && !reset)
+        {
+            reset = true;
             context.ResetFactory();
-            GameObject.Destroy(deadObject.gameObject);
         }
 
         if (trashTimer >= 6f)
-        {
-            return new EntryState(context.GetNextEntryData());
-        }
+            {
+                return new EntryState(context.GetNextEntryData());
+            }
         return null;
     }
 }

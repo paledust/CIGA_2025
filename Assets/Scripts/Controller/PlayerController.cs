@@ -16,6 +16,14 @@ public class PlayerController : MonoBehaviour
         mainCam = Camera.main;
         UpdateCursorState(currentCursorState);
     }
+    void OnEnable()
+    {
+        EventHandler.E_FlushInput += ReleaseHoldInteractable;
+    }
+    void OnDisable()
+    {
+        EventHandler.E_FlushInput -= ReleaseHoldInteractable;
+    }
     void Update()
     {
         if (holdedInteractable == null)

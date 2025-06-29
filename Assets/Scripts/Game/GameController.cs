@@ -1,5 +1,7 @@
+using System.Collections;
 using SimpleAudioSystem;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameController : MonoBehaviour
 {
@@ -20,11 +22,15 @@ public class GameController : MonoBehaviour
     [SerializeField] private string roomToneClip;
     [Header("Handle")]
     [SerializeField] private Handle handle;
+    [Header("Time line")]
+    [SerializeField] private PlayableDirector TL_GateOpen;
+    [SerializeField] private PlayableDirector TL_GateClose;
 
     private GameState currentState;
     private int currentDeadsIndex = 0;
 
     #region Unity Life Cycle
+
     void Start()
     {
         currentState = new IntroState(introTime);
@@ -62,12 +68,27 @@ public class GameController : MonoBehaviour
         currentDeadsIndex++;
         return entryData;
     }
-    public void ReadDeadObject(DeadObject deads)=>deadReader.ReadDeadObject(deads);
+    public void ReadDeadObject(DeadObject deads) => deadReader.ReadDeadObject(deads);
     public void ResetFactory()
     {
-        deadReader.ClearRead();
+        TL_GateClose.Play();
         handle.ResetHandle();
     }
+    public void ClearDeads(DeadObject deadObject)
+    {
+        Destroy(deadObject.gameObject);
+        deadReader.ClearRead();
+    }
     public Vector3 GetTrashPos() => trashPoint.position;
+    public void StartGateOpenSeq()
+    {
+        StartCoroutine(coroutineGateOpen());
+    }
     #endregion
+    IEnumerator coroutineGateOpen()
+    {
+        TL_GateOpen.Play();
+        yield return new WaitForSeconds((float)TL_GateOpen.duration);
+        handle.UnlockHandle();
+    }
 }

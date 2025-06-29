@@ -4,7 +4,7 @@ using UnityEngine;
 public class DragableNotes : BasicInteractable
 {
     [SerializeField] private SpriteRenderer noteRender;
-
+    [SerializeField] private SpriteRenderer writingRender;
     private Rect moveRect;
     private Rect hangRect;
     private Vector2 targetPos;
@@ -26,6 +26,7 @@ public class DragableNotes : BasicInteractable
         this.label = label;
         this.deadType = deadType;
         this.num = num;
+        writingRender.gameObject.SetActive(true);
     }
     public override void OnClick(PlayerController playerController)
     {

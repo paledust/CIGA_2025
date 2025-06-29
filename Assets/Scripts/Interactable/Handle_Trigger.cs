@@ -25,8 +25,7 @@ public class Handle_Trigger : BasicInteractable
     {
         handle.PushHandle(delta.y * pushForce, ()=>
         {
-            OnRelease();
-            DisableHitbox();
+            EventHandler.Call_FlushInput();
         });
     }
 }

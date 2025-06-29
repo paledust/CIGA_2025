@@ -17,7 +17,14 @@ public class LabelDetailController : MonoBehaviour
     }
     public void ShowDetailedLabel(LabelDetailData detailData)
     {
-        tmpIndex.text = (detailData.num+1).ToString();
+        string numText = (detailData.num + 1).ToString();
+        char[] codeText = new char[3] { '0', '0', '0' };
+        for (int i = 0; i < numText.Length; i++)
+        {
+            codeText[2 - i] = numText[i];
+        }
+
+        tmpIndex.text = new string(codeText);
         tmpLabel.text = detailData.label;
         tmpType.text = detailData.deadsType;
         detailLabel.SetActive(true);

@@ -48,8 +48,8 @@ public class Handle : MonoBehaviour
         ratio = Mathf.Min(1, ratio);
         if (ratio > threashold)
         {
-            Success?.Invoke();
             isPushing = true;
+            Success?.Invoke();
             StartCoroutine(coroutinePushToEnd());
         }
     }
@@ -64,10 +64,12 @@ public class Handle : MonoBehaviour
     {
         StartCoroutine(coroutineResetHandle());
     }
+    public void UnlockHandle() => isLocked = false;
     #endregion
 
     IEnumerator coroutineResetHandle()
     {
+        isLocked = true;
         yield return new WaitForLoop(1f, (t) =>
         {
             ratio = Mathf.Lerp(1, 0, EasingFunc.Easing.BounceEaseOut(t));
@@ -88,7 +90,7 @@ public class Handle : MonoBehaviour
         float initRatio = ratio;
         yield return new WaitForLoop(0.2f, (t) =>
         {
-            ratio = Mathf.Lerp(initRatio, 1, EasingFunc.Easing.QuadEaseOut(t));
+            ratio = Mathf.LerpUnclamped(initRatio, 1, EasingFunc.Easing.QuadEaseOut(t));
         });
         isPushing = false;
         EventHandler.Call_OnBeginTrash();

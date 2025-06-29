@@ -730,6 +730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 423059219}
   - component: {fileID: 423059220}
+  - component: {fileID: 423059221}
   m_Layer: 0
   m_Name: '#Background'
   m_TagString: Untagged
@@ -769,6 +770,28 @@ SortingGroup:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!95 &423059221
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423059218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &448779310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2127,6 +2150,8 @@ PlayableDirector:
     value: {fileID: 644343888}
   - key: {fileID: 1466236139973342748, guid: 689dac0fb2cff414e990f5822a78d581, type: 2}
     value: {fileID: 1862340073}
+  - key: {fileID: -4339224492937800466, guid: 689dac0fb2cff414e990f5822a78d581, type: 2}
+    value: {fileID: 423059221}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1181090983 stripped
@@ -2198,6 +2223,8 @@ MonoBehaviour:
   deadReader: {fileID: 2007940075}
   roomToneClip: amb_roomtone
   handle: {fileID: 1862340071}
+  TL_GateOpen: {fileID: 1173409300}
+  TL_GateClose: {fileID: 1939105546}
 --- !u!4 &1222538358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3736033597586809902, guid: 17bf54152a795a5408e7f042e5ec0505, type: 3}
@@ -4145,6 +4172,12 @@ MonoBehaviour:
     y: -8.39
     width: 0.2
     height: 4
+  HangRect:
+    serializedVersion: 2
+    x: 10.25
+    y: 3.38
+    width: 3.22
+    height: 6.47
 --- !u!4 &1756955255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4993650523100113021, guid: 7300c5cbf6daffd4bb64835289db052d, type: 3}
@@ -4436,6 +4469,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1173409299}
+  - {fileID: 1939105545}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1919967301 stripped
@@ -4449,6 +4483,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8902babab3aaee45a000711b673cdaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1939105544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939105545}
+  - component: {fileID: 1939105546}
+  m_Layer: 0
+  m_Name: TL_GateClose
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1939105545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939105544}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1899481275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1939105546
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939105544}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 68b38ac77b0c1804b862b53bc6a619ea, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 8272631052962093727, guid: 68b38ac77b0c1804b862b53bc6a619ea, type: 2}
+    value: {fileID: 644343888}
+  - key: {fileID: -3822440948572215643, guid: 68b38ac77b0c1804b862b53bc6a619ea, type: 2}
+    value: {fileID: 1862340073}
+  - key: {fileID: -2694069567761185199, guid: 68b38ac77b0c1804b862b53bc6a619ea, type: 2}
+    value: {fileID: 423059221}
+  m_ExposedReferences:
+    m_References: []
 --- !u!21 &1960848402
 Material:
   serializedVersion: 8

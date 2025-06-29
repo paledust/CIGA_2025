@@ -22,6 +22,10 @@ public static class EventHandler
     public static void Call_OnChooseLabel(string label) => E_OnChooseLabel?.Invoke(label);
     public static event Action<LabelDetailData> E_OnShowLabel;
     public static void Call_OnShowLabel(LabelDetailData detailData) => E_OnShowLabel?.Invoke(detailData);
+    public static event Action E_AfterReadLabel;
+    public static void Call_AfterReadLabel() => E_AfterReadLabel?.Invoke();
+    public static event Action E_FlushInput;
+    public static void Call_FlushInput() => E_FlushInput?.Invoke();
     #endregion
 }
 

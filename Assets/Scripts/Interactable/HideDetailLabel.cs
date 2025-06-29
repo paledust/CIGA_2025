@@ -7,5 +7,6 @@ public class HideDetailLabel : BasicInteractable
     {
         base.OnClick(playerController);
         labelDetailController.HideDetailLabel();
+        EventHandler.Call_AfterReadLabel();
     }
 }
