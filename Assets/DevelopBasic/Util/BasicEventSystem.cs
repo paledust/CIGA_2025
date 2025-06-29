@@ -16,8 +16,12 @@ public static class EventHandler
     #region Interaction
     public static event Action E_OnTrashDeads;
     public static void Call_OnBeginTrash() => E_OnTrashDeads?.Invoke();
-    public static event Action E_OnInsertLabel;
-    public static void Call_OnInsertLabel() => E_OnInsertLabel?.Invoke();
+    public static event Action<DragableNotes> E_OnInsertLabel;
+    public static void Call_OnInsertLabel(DragableNotes notes) => E_OnInsertLabel?.Invoke(notes);
+    public static event Action<string> E_OnChooseLabel;
+    public static void Call_OnChooseLabel(string label) => E_OnChooseLabel?.Invoke(label);
+    public static event Action<LabelDetailData> E_OnShowLabel;
+    public static void Call_OnShowLabel(LabelDetailData detailData) => E_OnShowLabel?.Invoke(detailData);
     #endregion
 }
 

@@ -12,8 +12,10 @@ public class DeadReader : MonoBehaviour
     [SerializeField] private Equipment_AUDIO equipment_AUDIO;
     [SerializeField] private Equipment_IMG equipment_IMG;
     [SerializeField] private Equipment_TEXT equipment_TEXT;
+    private int index = 0;
     public void ReadDeadObject(DeadObject deads)
     {
+        equipment_TEXT.RegisterLabelDetail(index, deads.GetDeadsType());
         if (deads.HasText)
         {
             equipment_TEXT.ProcessContent(deads.GetTextData());

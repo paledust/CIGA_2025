@@ -4,6 +4,7 @@ public class BoardBox : MonoBehaviour
 {
     [SerializeField] private MarkRectController markRectController;
     [SerializeField] private Transform insertPoint;
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         var note = other.GetComponent<DragableNotes>();

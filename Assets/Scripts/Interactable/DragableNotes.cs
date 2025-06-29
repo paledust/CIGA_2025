@@ -3,19 +3,54 @@ using UnityEngine;
 
 public class DragableNotes : BasicInteractable
 {
+    [SerializeField] private SpriteRenderer noteRender;
+
     private Rect moveRect;
-    private BoardBox insertingBox;
+    private Rect hangRect;
     private Vector2 targetPos;
     private Vector3 validPoint;
+    private BoardBox insertingBox;
     private float initAngle;
+
+    private string label = string.Empty;
+    private string deadType = string.Empty;
+    private int num = -1;
+
     private bool locked;
+    private bool IsComplete = false;
+
+    private bool IsLabeled => !string.IsNullOrEmpty(label);
+
+    public void GiveLabelDetail(string label, string deadType, int num)
+    {
+        this.label = label;
+        this.deadType = deadType;
+        this.num = num;
+    }
     public override void OnClick(PlayerController playerController)
     {
-        base.OnClick(playerController);
-        targetPos = transform.position;
-        validPoint = targetPos;
-        playerController.HoldInteractable(this);
-        initAngle = transform.rotation.eulerAngles.z;
+        if (!IsLabeled)
+        {
+            targetPos = transform.position;
+            validPoint = targetPos;
+            playerController.HoldInteractable(this);
+            initAngle = transform.rotation.eulerAngles.z;
+        }
+        else
+        {
+            EventHandler.Call_OnShowLabel(new LabelDetailData()
+            {
+                num = num,
+                deadsType = deadType,
+                label = label
+            });
+            if (!IsComplete)
+            {
+                IsComplete = true;
+                transform.position = new Vector2(Random.Range(hangRect.min.x, hangRect.max.x), Random.Range(hangRect.min.y, hangRect.max.y));
+                noteRender.color = Color.gray;
+            }
+        }
     }
     public override void Controlling(Vector3 pos, Vector3 delta)
     {
@@ -35,9 +70,9 @@ public class DragableNotes : BasicInteractable
         else
         {
             locked = true;
-            transform.DOMove(insertingBox.GetInsertPos(), 0.4f).SetEase(Ease.OutBack).OnComplete(()=>
+            transform.DOMove(insertingBox.GetInsertPos(), 0.4f).SetEase(Ease.OutBack).OnComplete(() =>
             {
-                EventHandler.Call_OnInsertLabel();
+                EventHandler.Call_OnInsertLabel(this);
             });
             DisableHitbox();
         }
@@ -50,8 +85,9 @@ public class DragableNotes : BasicInteractable
     public void OnExitInsertionZone(BoardBox boardBox)
     {
         insertingBox = null;
-        if(!locked)
+        if (!locked)
             transform.DORotate(new Vector3(0, 0, initAngle), 0.5f).SetEase(Ease.OutQuad);
     }
     public void ChangeMoveRect(Rect newRect) => moveRect = newRect;
+    public void GiveHangRect(Rect newRect) => hangRect = newRect;
 }
