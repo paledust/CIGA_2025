@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b06eb9b321dbd56408e768d39450b6c5, type: 3}
-  m_Name: Apple_AUDIO
+  m_Name: "\u97F3\u54CD_AUDIO"
   m_EditorClassIdentifier: 
   mark: []
   audioText: 

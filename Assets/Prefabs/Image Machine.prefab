@@ -95,6 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 121114697658182476}
   shakeAnime: {fileID: 1042381566122403531}
+  glitchAnime: {fileID: 8992114338476237874}
+  glitchCycle: 10
+  glitchChance: 0.3
+  repairChance: 0.5
 --- !u!111 &1042381566122403531
 Animation:
   m_ObjectHideFlags: 0
@@ -388,6 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3434457278981592366}
   - component: {fileID: 471514528462565099}
+  - component: {fileID: 8992114338476237874}
   m_Layer: 0
   m_Name: screen
   m_TagString: Untagged
@@ -465,3 +470,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!111 &8992114338476237874
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941713857135141324}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 16117dde24fb60f498469a7fa15f6867, type: 2}
+  - {fileID: 7400000, guid: 9ae974958f44c684c952cb9713e8e814, type: 2}
+  - {fileID: 7400000, guid: 03e458293223b7a4da60c4b01a46c1d9, type: 2}
+  - {fileID: 7400000, guid: c851ea7d3f6a214409efa7a5f2ab8ad4, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0

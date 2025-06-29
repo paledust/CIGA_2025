@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: textData
       value: 
       objectReference: {fileID: 11400000, guid: 86c00f698610e6b43a53940d79ff594a, type: 2}
+    - target: {fileID: 2769299959093274686, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
+      propertyPath: audioData
+      value: 
+      objectReference: {fileID: 11400000, guid: e02219a8f3a089a4e8dc46756be77a47, type: 2}
     - target: {fileID: 3304845985085147997, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
       propertyPath: m_Name
       value: "\u97F3\u54CD Variant"

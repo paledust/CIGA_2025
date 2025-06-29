@@ -70,12 +70,12 @@ Material:
     - STATIC: 1
     - Vector1_1BFF6B46: 128
     - Vector1_5660967D: 1.2
-    - _DistortionStrength: 0
+    - _DistortionStrength: 0.05
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScanlineHeight: 10
-    - _ScanlineStrength: 0.5
-    - _StaticStrength: 0
+    - _ScanlineStrength: 0.1
+    - _StaticStrength: 0.2
     m_Colors:
     - _CRTWarpStrength: {r: 4, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
