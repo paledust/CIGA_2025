@@ -189,14 +189,14 @@ public class DeadEntry : GameState
         if (!deadsTrashed)
         {
             deadObject.transform.position = Vector3.Lerp(startPos, trashPoint, EasingFunc.Easing.QuadEaseIn(trashTimer / 1.5f));
-            deadObject.transform.localScale = Vector3.Lerp(startScale, startScale * 0.5f, EasingFunc.Easing.QuadEaseIn(trashTimer / 1.5f));
+            deadObject.transform.localScale = Vector3.Lerp(startScale, startScale * 0.4f, EasingFunc.Easing.QuadEaseIn(trashTimer / 1.5f));
         }
         if (trashTimer >= 1.5f && !deadsTrashed)
         {
             deadsTrashed = true;
             context.ClearDeads(deadObject);
         }
-        if (trashTimer >= 3f && !reset)
+        if (trashTimer >= 2f && !reset)
         {
             reset = true;
             context.ResetFactory();
