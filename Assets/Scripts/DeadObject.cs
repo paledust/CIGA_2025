@@ -23,9 +23,6 @@ public class DeadObject : MonoBehaviour
     public LastWords_AUDIO GetAudioData() => audioData;
     public LastWords_IMAGE GetImageData() => imgData;
     public string GetDeadsType() => deadType;
-    public void BeginTalking()
-    {
-        talkSign.DOFade(1, 0.1f);
-    }
+    public void BeginTalking()=>talkSign.DOFade(1, 0.1f);
     public void EndTalking()=>talkSign.DOFade(0, 0.1f);
 }

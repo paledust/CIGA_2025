@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b06eb9b321dbd56408e768d39450b6c5, type: 3}
-  m_Name: "\u5BF9\u8BB2\u673A_AUDIO"
+  m_Name: "\u5DE5\u5382_AUDIO"
   m_EditorClassIdentifier: 
   labels: []
   audioText: ==1->==1

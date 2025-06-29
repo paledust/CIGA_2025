@@ -97,6 +97,7 @@ MonoBehaviour:
   hitbox: {fileID: 31629072239539020}
   noteRender: {fileID: 8266762633067183111}
   writingRender: {fileID: 1715756057940692644}
+  dragClip: sfx_paper
 --- !u!210 &8346759475593929513
 SortingGroup:
   m_ObjectHideFlags: 0

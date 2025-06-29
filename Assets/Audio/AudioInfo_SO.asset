@@ -19,4 +19,8 @@ MonoBehaviour:
   sfx_info_list:
   - audio_name: sfx_static_loop
     audio_clip: {fileID: 8300000, guid: 95cb7d07301fefd469e8da94111cb4c2, type: 3}
+  - audio_name: sfx_joystick
+    audio_clip: {fileID: 8300000, guid: 6b12685e9c688ff4888fc97708aa43b8, type: 3}
+  - audio_name: sfx_paper
+    audio_clip: {fileID: 8300000, guid: 0d06b58a8eef132438c4845b7e9d1a28, type: 3}
   sfx_group_info_list: []

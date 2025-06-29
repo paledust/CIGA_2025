@@ -1,10 +1,12 @@
 using DG.Tweening;
+using SimpleAudioSystem;
 using UnityEngine;
 
 public class DragableNotes : BasicInteractable
 {
     [SerializeField] private SpriteRenderer noteRender;
     [SerializeField] private SpriteRenderer writingRender;
+    [SerializeField] private string dragClip;
     private Rect moveRect;
     private Rect hangRect;
     private Vector2 targetPos;
@@ -30,6 +32,7 @@ public class DragableNotes : BasicInteractable
     }
     public override void OnClick(PlayerController playerController)
     {
+        AudioManager.Instance.PlaySoundEffect(dragClip, 1);
         if (!IsLabeled)
         {
             targetPos = transform.position;
