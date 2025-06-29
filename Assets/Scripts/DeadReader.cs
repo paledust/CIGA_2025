@@ -21,6 +21,7 @@ public class DeadReader : MonoBehaviour
         }
         if (deads.HasAudio)
         {
+            equipment_AUDIO.AssignDeadObject(deads);
             equipment_AUDIO.ProcessContent(deads.GetAudioData());
         }
         if (deads.HasImg)

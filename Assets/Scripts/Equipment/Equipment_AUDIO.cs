@@ -8,6 +8,7 @@ public class Equipment_AUDIO : Equipment
     [SerializeField] private PerRenderWave perRenderWave;
     [SerializeField] private AudioSource staticLoop;
     [SerializeField] private string staticClip;
+    private DeadObject currentObject;
     private float audioTime = 0;
     readonly static string[] separators = new string[] { "==", "->" };
 
@@ -29,11 +30,13 @@ public class Equipment_AUDIO : Equipment
         }
         commandManager.AddCommand(headCommand);
     }
+    public void AssignDeadObject(DeadObject deadObject) => currentObject = deadObject;
     public override void ClearContent()
     {
         base.ClearContent();
         commandManager.AbortCommands();
         staticLoop.Stop();
+        currentObject = null;
     }
     void TuneWaveSignal(float ampControl)
     {
@@ -43,11 +46,13 @@ public class Equipment_AUDIO : Equipment
     public void OnGetSignal()
     {
         TuneWaveSignal(1);
+        currentObject.BeginTalking();
         AudioManager.Instance.PlaySoundEffectLoopSchedule(staticLoop, staticClip, staticLoop.volume, audioTime);
     }
     public void OnLostSignal()
     {
         TuneWaveSignal(0f);
+        currentObject.EndTalking();
         audioTime = staticLoop.time;
         staticLoop.Stop();
     }
