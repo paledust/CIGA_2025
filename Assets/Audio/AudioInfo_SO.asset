@@ -29,12 +29,18 @@ MonoBehaviour:
     audio_clip: {fileID: 8300000, guid: d5fd3fb2a8288d849993c9a58b1621bf, type: 3}
   - audio_name: sfx_ui_hit
     audio_clip: {fileID: 8300000, guid: 4ced997b4d4a4a244ba1103de22c2e01, type: 3}
+  - audio_name: sfx_convey_begin
+    audio_clip: {fileID: 8300000, guid: 2b0926fa686e9ae409e2d7b9483dc465, type: 3}
+  - audio_name: sfx_convey_end
+    audio_clip: {fileID: 8300000, guid: 303abec85f05d32418bda3208bd4425a, type: 3}
+  - audio_name: sfx_convey_loop
+    audio_clip: {fileID: 8300000, guid: 33a7ee1719be40148b2746617e3c8369, type: 3}
   sfx_group_info_list:
   - audio_group_name: group_key
     audioClips:
+    - {fileID: 8300000, guid: 7f370ff892244cc4398ce3a0ce45d3e9, type: 3}
     - {fileID: 8300000, guid: 5d3c8689f7a43d745b2854139713cf99, type: 3}
+    - {fileID: 8300000, guid: e6a1763187756b74884d8006acaea4f6, type: 3}
     - {fileID: 8300000, guid: 16f7f5e37e00e224ca1e3e24946f0e2f, type: 3}
     - {fileID: 8300000, guid: c07ae16329da1b24f8a5284720159ef8, type: 3}
     - {fileID: 8300000, guid: ffca5e32ef0bb1149b2cb6245eae2bb0, type: 3}
-    - {fileID: 8300000, guid: 7f370ff892244cc4398ce3a0ce45d3e9, type: 3}
-    - {fileID: 8300000, guid: e6a1763187756b74884d8006acaea4f6, type: 3}

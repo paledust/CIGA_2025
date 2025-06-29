@@ -1,4 +1,5 @@
 using DG.Tweening;
+using SimpleAudioSystem;
 using UnityEngine;
 
 public class Stairs : MonoBehaviour
@@ -39,10 +40,14 @@ public class Stairs : MonoBehaviour
     }
     public void SpeedUp(float targetSpeed, float duration)
     {
+        AudioManager.Instance.PlaySoundEffect(stopClip, 0.25f);
+        AudioManager.Instance.PlaySoundEffectLoop(loopAudio, loopClip, 0.25f, 0.5f);
         DOTween.To(() => speed, x => speed = x, targetSpeed, duration).SetEase(Ease.InQuad);
     }
     public void Stop(float duration)
     {
+        AudioManager.Instance.PlaySoundEffect(startClip, 0.25f);
+        AudioManager.Instance.PlaySoundEffectLoop(loopAudio, loopClip, 0, 0.5f);
         DOTween.To(()=>speed, x => speed = x, 0, duration).SetEase(Ease.OutQuad);
     }
 }
