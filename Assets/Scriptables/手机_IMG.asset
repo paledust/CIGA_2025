@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d9bc98aa598fe459eef254116d599a, type: 3}
   m_Name: "\u624B\u673A_IMG"
   m_EditorClassIdentifier: 
-  mark: []
-  showingImg: {fileID: 2800000, guid: d8b538796c7980843b59d62dbcdebef5, type: 3}
+  labels: []
+  showingImg: {fileID: 2800000, guid: bede1f064a71c7b4f8c47f54c3ad4b04, type: 3}
