@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SimpleAudioSystem;
 using UnityEngine;
 
 public class Handle : MonoBehaviour
@@ -17,6 +18,7 @@ public class Handle : MonoBehaviour
     [Header("Push Handle")]
     [SerializeField] private float threashold = 0.4f;
     [SerializeField] private Handle_Trigger handle_Trigger;
+    [SerializeField] private string handle_clip;
     private Vector3 initHandlePos;
     private Vector3 initHeadPos;
     private Vector3 initHandleScale;
@@ -87,6 +89,7 @@ public class Handle : MonoBehaviour
     }
     IEnumerator coroutinePushToEnd()
     {
+        AudioManager.Instance.PlaySoundEffect(handle_clip, 1);
         float initRatio = ratio;
         yield return new WaitForLoop(0.2f, (t) =>
         {

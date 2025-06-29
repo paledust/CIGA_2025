@@ -2755,7 +2755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStateType: 0
-  startDisposeObjIndex: 8
+  startDisposeObjIndex: 0
   deadsInLine:
   - {fileID: 8424770967622078}
   - {fileID: 945282540751373401}
@@ -2778,7 +2778,7 @@ MonoBehaviour:
   stair: {fileID: 487790478}
   TL_GateOpen: {fileID: 1173409300}
   TL_GateClose: {fileID: 1939105546}
-  TL_End: {fileID: 0}
+  TL_End: {fileID: 1837208166}
 --- !u!4 &1222538358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3736033597586809902, guid: 17bf54152a795a5408e7f042e5ec0505, type: 3}
@@ -5239,13 +5239,13 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1192782510}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: 
+        - m_Target: {fileID: 1192782512}
+          m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+          m_MethodName: GoToNextLevel
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -5432,6 +5432,11 @@ PlayableDirector:
     value: {fileID: 423059221}
   m_ExposedReferences:
     m_References: []
+--- !u!111 &1958466655 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 8992114338476237874, guid: bd06dcf44c8cf4b4194a017b3d4e5ef8, type: 3}
+  m_PrefabInstance: {fileID: 3190993607864141030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &1960848402
 Material:
   serializedVersion: 8
@@ -6859,6 +6864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ledRender: {fileID: 0}
   screenTex: {fileID: 815618391}
+  screenAnime: {fileID: 1958466655}
 --- !u!1001 &3190993607864141030
 PrefabInstance:
   m_ObjectHideFlags: 0

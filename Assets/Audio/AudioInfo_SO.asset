@@ -23,4 +23,12 @@ MonoBehaviour:
     audio_clip: {fileID: 8300000, guid: 6b12685e9c688ff4888fc97708aa43b8, type: 3}
   - audio_name: sfx_paper
     audio_clip: {fileID: 8300000, guid: 0d06b58a8eef132438c4845b7e9d1a28, type: 3}
-  sfx_group_info_list: []
+  sfx_group_info_list:
+  - audio_group_name: group_key
+    audioClips:
+    - {fileID: 8300000, guid: 5d3c8689f7a43d745b2854139713cf99, type: 3}
+    - {fileID: 8300000, guid: 16f7f5e37e00e224ca1e3e24946f0e2f, type: 3}
+    - {fileID: 8300000, guid: c07ae16329da1b24f8a5284720159ef8, type: 3}
+    - {fileID: 8300000, guid: ffca5e32ef0bb1149b2cb6245eae2bb0, type: 3}
+    - {fileID: 8300000, guid: 7f370ff892244cc4398ce3a0ce45d3e9, type: 3}
+    - {fileID: 8300000, guid: e6a1763187756b74884d8006acaea4f6, type: 3}

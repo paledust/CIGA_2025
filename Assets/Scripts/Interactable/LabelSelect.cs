@@ -1,4 +1,5 @@
 using System.Collections;
+using SimpleAudioSystem;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class LabelSelect : BasicInteractable
     [SerializeField] private SpriteRenderer m_bk;
     [SerializeField] private TextMeshPro text;
     [SerializeField] private Animation blink;
+    [SerializeField] private string selectClip = "group_key";
     private string label;
     public void ShowLabel(string label)
     {
@@ -25,6 +27,7 @@ public class LabelSelect : BasicInteractable
     public override void OnHover()
     {
         base.OnHover();
+        AudioManager.Instance.PlaySoundEffect(selectClip, 0.5f);
         m_bk.color = Color.white;
         text.color = Color.black;
     }
@@ -37,6 +40,7 @@ public class LabelSelect : BasicInteractable
     public override void OnClick(PlayerController playerController)
     {
         DisableHitbox();
+        AudioManager.Instance.PlaySoundEffect(selectClip, 0.5f);
         StartCoroutine(coroutineOnChooseLabel());
     }
     IEnumerator coroutineOnChooseLabel()
