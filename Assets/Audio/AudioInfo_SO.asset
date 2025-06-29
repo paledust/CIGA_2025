@@ -23,6 +23,10 @@ MonoBehaviour:
     audio_clip: {fileID: 8300000, guid: 6b12685e9c688ff4888fc97708aa43b8, type: 3}
   - audio_name: sfx_paper
     audio_clip: {fileID: 8300000, guid: 0d06b58a8eef132438c4845b7e9d1a28, type: 3}
+  - audio_name: sfx_eject
+    audio_clip: {fileID: 8300000, guid: 644e2291b60f3b14f8381f9ee50e75cd, type: 3}
+  - audio_name: sfx_insert
+    audio_clip: {fileID: 8300000, guid: d5fd3fb2a8288d849993c9a58b1621bf, type: 3}
   sfx_group_info_list:
   - audio_group_name: group_key
     audioClips:

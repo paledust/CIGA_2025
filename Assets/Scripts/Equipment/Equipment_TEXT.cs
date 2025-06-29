@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using Febucci.UI;
+using SimpleAudioSystem;
 using UnityEngine;
 
 public class Equipment_TEXT : Equipment
@@ -11,6 +12,9 @@ public class Equipment_TEXT : Equipment
     [Header("crack")]
     [SerializeField] private Animation crackAnimation;
     [SerializeField] private GameObject crackMask;
+    [Header("Audio")]
+    [SerializeField] private string insertClip;
+    [SerializeField] private string ejectClip;
     private string[] labels;
     private int currentNum;
     private string currentDeadType;
@@ -40,6 +44,7 @@ public class Equipment_TEXT : Equipment
     void OnInsertLabelHandler(DragableNotes notes)
     {
         ClearContent();
+        AudioManager.Instance.PlaySoundEffect(insertClip, 1.0f);
         labelSelectGroup.SetActive(true);
         int totalcount = Mathf.Min(labelSelects.Length, labels.Length);
         for (int i = 0; i < totalcount; i++)
@@ -50,6 +55,7 @@ public class Equipment_TEXT : Equipment
     }
     void OnChooseLabelHandler(string label)
     {
+        AudioManager.Instance.PlaySoundEffect(ejectClip, 0.25f);
         for (int i = 0; i < labelSelects.Length; i++)
         {
             labelSelects[i].ClearLabel();
