@@ -4,6 +4,7 @@ public class BoardBox : MonoBehaviour
 {
     [SerializeField] private MarkRectController markRectController;
     [SerializeField] private Transform insertPoint;
+    private bool occupied = false;
     
     void OnTriggerEnter2D(Collider2D other)
     {

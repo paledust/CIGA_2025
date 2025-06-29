@@ -35,6 +35,8 @@ MonoBehaviour:
     audio_clip: {fileID: 8300000, guid: 303abec85f05d32418bda3208bd4425a, type: 3}
   - audio_name: sfx_convey_loop
     audio_clip: {fileID: 8300000, guid: 33a7ee1719be40148b2746617e3c8369, type: 3}
+  - audio_name: sfx_saw_trigger
+    audio_clip: {fileID: 8300000, guid: e70a7c1baa0382c4fb86c49cbb764bc6, type: 3}
   sfx_group_info_list:
   - audio_group_name: group_key
     audioClips:

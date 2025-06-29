@@ -47,7 +47,7 @@ public class Handle : MonoBehaviour
     public void PushHandle(float force, Action Success)
     {
         ratio += force * Time.deltaTime;
-        ratio = Mathf.Min(1, ratio);
+        ratio = Mathf.Clamp01(ratio);
         if (ratio > threashold)
         {
             isPushing = true;

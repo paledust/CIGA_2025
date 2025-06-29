@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private string roomToneClip;
     [Header("Handle")]
     [SerializeField] private Handle handle;
+    [Header("Audio")]
+    [SerializeField] private string sawClip;
+    [SerializeField] private ParticleSystem sawParticle;
     [Header("Stairs")]
     [SerializeField] private Stairs stair;
     [Header("Time line")]
@@ -82,6 +85,8 @@ public class GameController : MonoBehaviour
     }
     public void ClearDeads(DeadObject deadObject)
     {
+        sawParticle.Play();
+        AudioManager.Instance.PlaySoundEffect(sawClip, 1f);
         Destroy(deadObject.gameObject);
         deadReader.ClearRead();
     }
