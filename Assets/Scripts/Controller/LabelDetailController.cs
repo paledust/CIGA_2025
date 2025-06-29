@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class LabelDetailController : MonoBehaviour
 {
+    [SerializeField] private GameController gameController;
     [SerializeField] private GameObject detailLabel;
     [SerializeField] private TextMeshPro tmpIndex;
     [SerializeField] private TextMeshPro tmpType;
     [SerializeField] private TextMeshPro tmpLabel;
+    private int showingIndex;
+    public bool IsShowingNewLabel => showingIndex==gameController.currentDeadsIndex;
     void Awake()
     {
         EventHandler.E_OnShowLabel += ShowDetailedLabel;
@@ -17,6 +20,7 @@ public class LabelDetailController : MonoBehaviour
     }
     public void ShowDetailedLabel(LabelDetailData detailData)
     {
+        showingIndex = detailData.num;
         string numText = (detailData.num + 1).ToString();
         char[] codeText = new char[3] { '0', '0', '0' };
         for (int i = 0; i < numText.Length; i++)

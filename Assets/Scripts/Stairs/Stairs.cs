@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Stairs : MonoBehaviour
@@ -31,5 +32,13 @@ public class Stairs : MonoBehaviour
                 stairBars[i].position = pos;
             }
         }
+    }
+    public void SpeedUp(float targetSpeed, float duration)
+    {
+        DOTween.To(() => speed, x => speed = x, targetSpeed, duration).SetEase(Ease.InQuad);
+    }
+    public void Stop(float duration)
+    {
+        DOTween.To(()=>speed, x => speed = x, 0, duration).SetEase(Ease.OutQuad);
     }
 }

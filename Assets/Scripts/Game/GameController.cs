@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 public class GameController : MonoBehaviour
 {
     [SerializeField, ShowOnly] private GameStateType currentStateType = GameStateType.None;
-    [Header("dispose obejct")]
+    [Header("dead obejct")]
     [SerializeField] private int startDisposeObjIndex = 0;
     [SerializeField] private DeadObject[] deadsInLine;
     [Header("ref Point")]
@@ -22,18 +22,21 @@ public class GameController : MonoBehaviour
     [SerializeField] private string roomToneClip;
     [Header("Handle")]
     [SerializeField] private Handle handle;
+    [Header("Stairs")]
+    [SerializeField] private Stairs stair;
     [Header("Time line")]
     [SerializeField] private PlayableDirector TL_GateOpen;
     [SerializeField] private PlayableDirector TL_GateClose;
 
     private GameState currentState;
-    private int currentDeadsIndex = -1;
+    public int currentDeadsIndex { get; private set; } = -1;
 
     #region Unity Life Cycle
 
     void Start()
     {
         currentState = new IntroState(introTime);
+        currentState.EnterState(this);
         currentDeadsIndex = startDisposeObjIndex-1;
         AudioManager.Instance.PlayAmbience(roomToneClip, true, 1, true);
     }
@@ -84,6 +87,8 @@ public class GameController : MonoBehaviour
     {
         StartCoroutine(coroutineGateOpen());
     }
+    public void SpeedUpStair(float duration) => stair.SpeedUp(2f, duration);
+    public void StopStair(float duration) => stair.Stop(duration);
     #endregion
     IEnumerator coroutineGateOpen()
     {

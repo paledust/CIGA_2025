@@ -27,6 +27,11 @@ public class IntroState : GameState
     {
         stateTimer = duration;
     }
+    public override void EnterState(GameController context)
+    {
+        base.EnterState(context);
+        context.SpeedUpStair(2f);
+    }
     public override State<GameController> UpdateState(GameController context)
     {
         stateTimer -= Time.deltaTime;
@@ -62,6 +67,7 @@ public class EntryState : GameState
         base.EnterState(context);
         entryData.entryObject.gameObject.SetActive(true);
         entryData.entryObject.transform.position = entryData.startPos;
+        context.StopStair(entryData.tweenDuration);
     }
     public override State<GameController> UpdateState(GameController context)
     {
@@ -175,21 +181,22 @@ public class DeadEntry : GameState
     {
         trashTimer = 0;
         trashPoint = context.GetTrashPos();
+        context.SpeedUpStair(1.5f);
     }
     public override State<GameController> UpdateState(GameController context)
     {
         trashTimer += Time.deltaTime;
         if (!deadsTrashed)
         {
-            deadObject.transform.position = Vector3.Lerp(startPos, trashPoint, EasingFunc.Easing.SmoothInOut(trashTimer / 0.5f));
-            deadObject.transform.localScale = Vector3.Lerp(startScale, startScale * 0.5f, EasingFunc.Easing.SmoothInOut(trashTimer / 0.5f));
+            deadObject.transform.position = Vector3.Lerp(startPos, trashPoint, EasingFunc.Easing.QuadEaseIn(trashTimer / 1.5f));
+            deadObject.transform.localScale = Vector3.Lerp(startScale, startScale * 0.5f, EasingFunc.Easing.QuadEaseIn(trashTimer / 1.5f));
         }
-        if (trashTimer >= 0.5f && !deadsTrashed)
+        if (trashTimer >= 1.5f && !deadsTrashed)
         {
             deadsTrashed = true;
             context.ClearDeads(deadObject);
         }
-        if (trashTimer >= 2f && !reset)
+        if (trashTimer >= 3f && !reset)
         {
             reset = true;
             context.ResetFactory();

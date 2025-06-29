@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de505e9a4d2b02544b1f68765dfab184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 1192782512}
   detailLabel: {fileID: 3721995728061815904}
   tmpIndex: {fileID: 1508537115}
   tmpType: {fileID: 1739731262}
@@ -649,7 +650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &422236514
 Transform:
   m_ObjectHideFlags: 0
@@ -939,7 +940,7 @@ MonoBehaviour:
   - {fileID: 949439829}
   - {fileID: 1558738287}
   - {fileID: 1997705767}
-  speed: 2
+  speed: 0
 --- !u!1 &583122506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2206,15 +2207,15 @@ MonoBehaviour:
   currentStateType: 0
   startDisposeObjIndex: 0
   deadsInLine:
-  - {fileID: 4557787140172589393}
-  - {fileID: 1713241884887748723}
-  - {fileID: 721853907797592682}
-  - {fileID: 1887124996885238761}
+  - {fileID: 8424770967622078}
   - {fileID: 945282540751373401}
   - {fileID: 8750220808032012314}
-  - {fileID: 8424770967622078}
-  - {fileID: 455046163534905852}
+  - {fileID: 4557787140172589393}
   - {fileID: 5196675497358720270}
+  - {fileID: 721853907797592682}
+  - {fileID: 1887124996885238761}
+  - {fileID: 1713241884887748723}
+  - {fileID: 455046163534905852}
   preparePoint: {fileID: 723066631}
   viewPoint: {fileID: 1811731517}
   trashPoint: {fileID: 749585466}
@@ -2223,12 +2224,18 @@ MonoBehaviour:
   deadReader: {fileID: 2007940075}
   roomToneClip: amb_roomtone
   handle: {fileID: 1862340071}
+  stair: {fileID: 487790478}
   TL_GateOpen: {fileID: 1173409300}
   TL_GateClose: {fileID: 1939105546}
 --- !u!4 &1222538358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3736033597586809902, guid: 17bf54152a795a5408e7f042e5ec0505, type: 3}
   m_PrefabInstance: {fileID: 3251212260951602555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1258705991 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 7611335038719564988, guid: b8ab3c7c1667dde47b32383495a5faaa, type: 3}
+  m_PrefabInstance: {fileID: 1829911175725825221}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1290807326 stripped
 Transform:
@@ -2568,15 +2575,15 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1848832681}
-  - {fileID: 1078292}
-  - {fileID: 1615727312}
-  - {fileID: 1181090983}
+  - {fileID: 865035660}
   - {fileID: 1290807326}
   - {fileID: 874153114}
-  - {fileID: 865035660}
-  - {fileID: 1866436346}
+  - {fileID: 1848832681}
   - {fileID: 602183681}
+  - {fileID: 1615727312}
+  - {fileID: 1181090983}
+  - {fileID: 1078292}
+  - {fileID: 1866436346}
   m_Father: {fileID: 919716718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1429669688
@@ -5814,6 +5821,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1003603919}
     m_Modifications:
+    - target: {fileID: 3144530584290282824, guid: b8ab3c7c1667dde47b32383495a5faaa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3262225041811381227, guid: b8ab3c7c1667dde47b32383495a5faaa, type: 3}
       propertyPath: insertPoint
       value: 
@@ -6357,6 +6368,8 @@ MonoBehaviour:
   - {fileID: 1013824104}
   - {fileID: 715574417}
   - {fileID: 288054850}
+  crackAnimation: {fileID: 1258705991}
+  crackMask: {fileID: 422236513}
 --- !u!4 &5635425193816362076
 Transform:
   m_ObjectHideFlags: 0
