@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: imgData
       value: 
       objectReference: {fileID: 11400000, guid: cd2bc93958e86604e90b8fc4674dc7f8, type: 2}
+    - target: {fileID: 2769299959093274686, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
+      propertyPath: textData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9493667068d628a498f722ce4765f064, type: 2}
     - target: {fileID: 3304845985085147997, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
       propertyPath: m_Name
       value: "\u76F8\u673A Variant"

@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: imgData
       value: 
       objectReference: {fileID: 11400000, guid: 81c0ad6b10532ac41b9578ae20a8f22e, type: 2}
+    - target: {fileID: 2769299959093274686, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
+      propertyPath: textData
+      value: 
+      objectReference: {fileID: 11400000, guid: 584aa00cabf5bc04cb8902f8e91e2359, type: 2}
     - target: {fileID: 3304845985085147997, guid: 1f18694cc4e0a8c4da3ae52c454b5ab6, type: 3}
       propertyPath: m_Name
       value: MP3 Variant
