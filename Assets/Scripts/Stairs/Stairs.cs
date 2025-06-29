@@ -5,6 +5,10 @@ public class Stairs : MonoBehaviour
 {
     [SerializeField] private Transform[] stairBars;
     [SerializeField] private float speed;
+    [SerializeField] private string loopClip;
+    [SerializeField] private string stopClip;
+    [SerializeField] private string startClip;
+    [SerializeField] private AudioSource loopAudio;
     private float intersection = 1.5f;
     void Start()
     {

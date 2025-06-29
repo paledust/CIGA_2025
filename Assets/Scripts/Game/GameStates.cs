@@ -67,7 +67,6 @@ public class EntryState : GameState
         base.EnterState(context);
         entryData.entryObject.gameObject.SetActive(true);
         entryData.entryObject.transform.position = entryData.startPos;
-        context.StopStair(entryData.tweenDuration);
     }
     public override State<GameController> UpdateState(GameController context)
     {
@@ -75,7 +74,10 @@ public class EntryState : GameState
         entryTrans.position = Vector3.LerpUnclamped(entryData.startPos, entryData.targetPos, EasingFunc.Easing.QuadEaseOut(tweenTimer / entryData.tweenDuration));
         entryTrans.localScale = Vector3.one * Mathf.LerpUnclamped(2f, 1f, EasingFunc.Easing.QuadEaseOut(tweenTimer / entryData.tweenDuration));
         if (tweenTimer >= entryData.tweenDuration)
+        {
+            context.StopStair(0.5f);
             return new GetMessageState(entryData.entryObject);
+        }
         else
             return null;
     }
@@ -184,7 +186,7 @@ public class DeadEntry : GameState
     {
         trashTimer = 0;
         trashPoint = context.GetTrashPos();
-        context.SpeedUpStair(1.5f);
+        context.SpeedUpStair(0.5f);
     }
     public override State<GameController> UpdateState(GameController context)
     {
