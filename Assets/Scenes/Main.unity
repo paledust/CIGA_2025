@@ -7655,10 +7655,6 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.3343894
       objectReference: {fileID: 0}
-    - target: {fileID: 3614706399247023889, guid: 311002f049086e44d9233138bd82b91b, type: 3}
-      propertyPath: handle_clip
-      value: sfx_handle
-      objectReference: {fileID: 0}
     - target: {fileID: 5056277655155752778, guid: 311002f049086e44d9233138bd82b91b, type: 3}
       propertyPath: m_Name
       value: Handle
