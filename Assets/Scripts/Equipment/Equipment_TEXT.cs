@@ -74,6 +74,7 @@ public class Equipment_TEXT : Equipment
     {
         typeWriter.TextAnimator.SetText(string.Empty);
     }
+    public void ShowContent(string content)=>typeWriter.ShowText(content);
     IEnumerator coroutineOpenCrack()
     {
         yield return new WaitForSeconds(3f);

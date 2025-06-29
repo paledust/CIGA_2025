@@ -12,6 +12,7 @@ public class EQ_Show_Audio : EQ_AUDIO_Command
     {
         timer = 0;
         isExcuted = false;
+        this.content = content;
         this.duration = duration;
     }
     protected override void Init()

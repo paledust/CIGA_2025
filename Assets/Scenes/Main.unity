@@ -5450,6 +5450,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1427319193}
     m_Modifications:
+    - target: {fileID: 5902954691447485029, guid: e508229f978a8c046b9df35f0eeec429, type: 3}
+      propertyPath: textData
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902954691447485029, guid: e508229f978a8c046b9df35f0eeec429, type: 3}
+      propertyPath: audioData
+      value: 
+      objectReference: {fileID: 11400000, guid: a951f7d84dfc46b45bbdc6c8a995a369, type: 2}
     - target: {fileID: 6510004175329399046, guid: e508229f978a8c046b9df35f0eeec429, type: 3}
       propertyPath: m_Name
       value: "\u624B\u673A"
@@ -6488,6 +6496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ledRender: {fileID: 0}
   commandManager: {fileID: 6926533135482769181}
+  equipment_TEXT: {fileID: 5380916270704042501}
   perRenderWave: {fileID: 4488876574608441129}
   staticLoop: {fileID: 6926533135482769182}
   staticClip: sfx_static_loop
@@ -6514,8 +6523,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: add066e2a61fdef439dcd2ee4c29887b, type: 3}
+  m_Resource: {fileID: 8300000, guid: add066e2a61fdef439dcd2ee4c29887b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
