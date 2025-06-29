@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe0ca1977d3b52441ac7f0a13dd1f9c3, type: 3}
-  m_Name: Phone_TEXT
+  m_Name: "\u5439\u98CE\u673A_TEXT"
   m_EditorClassIdentifier: 
   labels:
   - "\u65E0\u6CD5\u9001\u8FBE\u7684\u8BAF\u606F"

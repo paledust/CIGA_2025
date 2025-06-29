@@ -27,14 +27,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private PlayableDirector TL_GateClose;
 
     private GameState currentState;
-    private int currentDeadsIndex = 0;
+    private int currentDeadsIndex = -1;
 
     #region Unity Life Cycle
 
     void Start()
     {
         currentState = new IntroState(introTime);
-        currentDeadsIndex = startDisposeObjIndex;
+        currentDeadsIndex = startDisposeObjIndex-1;
         AudioManager.Instance.PlayAmbience(roomToneClip, true, 1, true);
     }
     void Update()
@@ -58,6 +58,7 @@ public class GameController : MonoBehaviour
     }
     public EntryState.EntryData GetNextEntryData()
     {
+        currentDeadsIndex++;
         var entryData = new EntryState.EntryData()
         {
             entryObject = deadsInLine[currentDeadsIndex],
@@ -65,10 +66,9 @@ public class GameController : MonoBehaviour
             targetPos = viewPoint.position,
             tweenDuration = entryTime
         };
-        currentDeadsIndex++;
         return entryData;
     }
-    public void ReadDeadObject(DeadObject deads) => deadReader.ReadDeadObject(deads);
+    public void ReadDeadObject(DeadObject deads) => deadReader.ReadDeadObject(deads, currentDeadsIndex);
     public void ResetFactory()
     {
         TL_GateClose.Play();
