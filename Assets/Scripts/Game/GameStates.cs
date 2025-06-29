@@ -153,7 +153,10 @@ public class ChooseMark : GameState
         if (!hasRead)
         {
             hasRead = true;
-            context.StartGateOpenSeq();
+            if (!context.IsEnding)
+                context.StartGateOpenSeq();
+            else
+                context.StartEndingSeq();
         }
     }
 }

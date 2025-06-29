@@ -27,8 +27,11 @@ public class GameController : MonoBehaviour
     [Header("Time line")]
     [SerializeField] private PlayableDirector TL_GateOpen;
     [SerializeField] private PlayableDirector TL_GateClose;
+    [SerializeField] private PlayableDirector TL_End;
 
     private GameState currentState;
+
+    public bool IsEnding => currentDeadsIndex == deadsInLine.Length - 1;
     public int currentDeadsIndex { get; private set; } = -1;
 
     #region Unity Life Cycle
@@ -87,9 +90,15 @@ public class GameController : MonoBehaviour
     {
         StartCoroutine(coroutineGateOpen());
     }
+    public void StartEndingSeq()
+    {
+        TL_End.Play();
+    }
     public void SpeedUpStair(float duration) => stair.SpeedUp(2f, duration);
     public void StopStair(float duration) => stair.Stop(duration);
     #endregion
+
+    public void GoToNextLevel() => GameManager.Instance.SwitchingScene("Credit");
     IEnumerator coroutineGateOpen()
     {
         TL_GateOpen.Play();
